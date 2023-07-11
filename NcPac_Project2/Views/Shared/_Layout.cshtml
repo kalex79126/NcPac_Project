@@ -1,0 +1,145 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<IdentityUser> signInManager
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NCPAC | @ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    @*<link rel="stylesheet" href="~/NcPac_Project2.styles.css" asp-append-version="true" />*@
+</head>
+<body>
+    <header class="headerback" style="display:block;">
+        <div class="logo">
+            <a asp-area="" asp-controller="Home" asp-action="Index">
+                <h1 style="background-image: url('https://www.niagaracollege.ca/policies/wp-content/themes/niagara-college-departments-v2/img/nc-logo.svg');width:280px;height:42px;background-repeat:no-repeat;position:relative;top:3px;font-weight:500;">
+                    <span style="clip:rect(1px, 1px, 1px, 1px);height:1px !important;width:1px;position:absolute;">Niagara College Canada</span>
+                </h1>
+            </a>
+        </div>
+
+    </header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm headerback  box-shadow" style="background:#3e3e3e;">
+        <div class="container-fluid">
+            <button  class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"><img src="~/images/three-bar-menu-icon-3.jpg" height="30px" width="30px" /></span>
+            </button>
+            <div class="navbar-collapse collapse ">
+                <ul class="navbar-nav flex-grow-1">
+                    @if (signInManager.IsSignedIn(User) && User.IsInRole("User"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link nav-text" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-text" asp-area="" asp-controller="Meetings" asp-action="Index">Meetings</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link nav-text" asp-area="" asp-controller="Actions" asp-action="Index">Action Items</a>
+                        </li>
+                    }
+                    @if ((signInManager.IsSignedIn(User) && User.IsInRole("Top Admin")) || (signInManager.IsSignedIn(User) && User.IsInRole("Admin")))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link nav-text" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-text" asp-area="" asp-controller="Members" asp-action="Index">Members</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-text" asp-area="" asp-controller="Meetings" asp-action="Index">Meetings</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link nav-text" asp-area="" asp-controller="Actions" asp-action="Index">Action Items</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link nav-text" asp-area="" asp-controller="Committees" asp-action="Index">Committees</a>
+                        </li>
+                    }
+                    @if (signInManager.IsSignedIn(User) && User.IsInRole("Top Admin"))
+                    {
+                        @*<li class="nav-item">
+                            <a class="nav-link nav-text" asp-area="" asp-controller="UserRoles" asp-action="Index">Accounts</a>
+                        </li>*@
+                        <li class="nav-item">
+                            <a class="nav-link nav-text" asp-area="" asp-controller="MeetingMinutes" asp-action="Index">Documents</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-text" asp-area="" asp-controller="Volunteers" asp-action="Index">Accounts</a>
+                        </li>
+                    }
+                </ul>
+                <partial name="_LoginPartial" />
+            </div>
+        </div>
+
+    </nav>
+
+    <div>
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+
+    @*Footer*@
+    <footer class="border-top footer text-muted">
+        <div class="container text-center">
+            
+            &copy; Copyright Niagara College Canada. All Rights Reserved.
+
+            <a href="https://www.niagaracollege.ca" style="border-left:1px solid #000;padding-left:10px;">Home</a>
+
+            <a href="https://www.niagaracollege.ca/disclaimer/" style="padding-left:5px;">Disclaimer</a>
+
+            <a href="http://www.niagaracollege.ca/careers" style="padding-left:5px">Careers</a>
+
+            <a href="~/contact/index" style="padding-left:5px">Contact Us</a>
+
+
+        </div>
+
+    </footer>
+    @*Footer V2 - NMK*@
+    @*This footer starts at the end of the container of the page - NMK*@
+    @* <div class="navbar fixed-bottom" style="color:rgba(0,0,0,0.8);position:static;">
+    <div class="container">
+    <div class="row justify-content-center p-3">
+    <div class="col-auto">
+    &copy; Copyright Niagara College Canada. All Rights Reserved.
+    </div>
+    <div class="col-auto">
+    <ul style="list-style-type:none; display:flex;top:-1px;float:left;border-left:1px solid #000;">
+    <li style="padding:0;margin: 0 0.75rem 0 0;">
+    <a href="https://www.niagaracollege.ca">Home</a>
+    </li>
+    <li style="padding:0;margin: 0 0.75rem 0 0;">
+    <a href="https://www.niagaracollege.ca/disclaimer/">Disclaimer</a>
+    </li>
+    <li style="padding:0;margin: 0 0.75rem 0 0;">
+    <a href="http://www.niagaracollege.ca/careers">Careers</a>
+    </li>
+    <li style="padding:0;margin: 0 0.75rem 0 0;">
+    <a href="https://www.niagaracollege.ca/contact/">Contact Us</a>
+    </li>
+    </ul>
+    </div>
+    </div>
+    </div>
+
+    </div>*@
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

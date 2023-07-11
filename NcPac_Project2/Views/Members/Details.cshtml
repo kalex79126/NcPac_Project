@@ -1,0 +1,297 @@
+﻿@model NcPac_Project2.Models.Member
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="jumbotron jumbotron-fluid margin-bottom" style="background-color:#0077be; color:#fff;">
+    <div class="container">
+        <h1 class="display-4">Member Details</h1>
+        <p class="lead">Check entire information</p>
+    </div>
+</div>
+
+<div class="container">
+    <div>
+        <fieldset>
+            <legend>Personal Information</legend>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.MemberFirstName)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.MemberFirstName)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.MemberLastName)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.MemberLastName)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.MemberAddress)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.MemberAddress)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.MemberCity)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.MemberCity)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.MemberProvince)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.MemberProvince)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.MemberPostalCode)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.MemberPostalCode)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.MemberPhoneNo)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.MemPhoneFormat)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.MemberEmail)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.MemberEmail)
+                </dd>
+            </dl>
+        </fieldset>
+        <hr />
+        <fieldset>
+            <legend>Employement Information</legend>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.MemberPosition)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.MemberPosition)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.MemberCompany)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.MemberCompany)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.MemberEmAddress)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.MemberEmAddress)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.MemberEmCity)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.MemberEmCity)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.MemberEmProvince)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.MemberEmProvince)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.MemberEmPostalCode)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.MemberEmPostalCode)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.MemberEmPhoneNo)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.MemEmPhoneFormat)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.MemberEmEmail)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.MemberEmEmail)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.MemberIsMailingHome)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.MemberIsMailingHome)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.MemberIsNcGrad)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.MemberIsNcGrad)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.MemberEducation)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.MemberEducation)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.MemberParticipation)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.MemberParticipation)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.MemberRegisteredAt)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.MemberRegisteredAt)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.MemberLastLogin)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.MemberLastLogin)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.MemberRenewalDate)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.MemberRenewalDate)
+                </dd>
+            </dl>
+        </fieldset>
+        <hr />
+        <fieldset>
+            <legend>Committee Information</legend>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.MemberCommitteeEnrolls)
+                </dt>
+                <dd class="col-sm-10">
+                    @{
+                        // getting number of Committees
+                        int numberOfCommittees = Model.MemberCommitteeEnrolls.Count;
+                        // if there is an Committees
+                        if (numberOfCommittees > 0)
+                        {
+                            // getting very first Committees
+                            string initialCommittee = Model.MemberCommitteeEnrolls.FirstOrDefault().Committee.CommitteeName;
+                            // now for the rest of the Committees
+                            if (numberOfCommittees > 1)
+                            {
+                                // declaring an empty string
+                                string committees = "";
+                                var c = Model.MemberCommitteeEnrolls.ToList();
+                                // looping through and adding Committee names in the string
+                                for (int i = 1; i < numberOfCommittees; i++)
+                                {
+                                    committees += c[i].Committee.CommitteeName + " <br />";
+                                }
+                                <a class="" role="button" data-bs-toggle="collapse" href="#collapseHistory@(Model.MemberID)"
+                           aria-expanded="false" aria-controls="collapseHistory@(Model.MemberID)">
+                                    @initialCommittee <span class="badge bg-info">@numberOfCommittees</span>
+                                </a>
+                                <div class="collapse" id="collapseHistory@(Model.MemberID)">
+                                    @Html.Raw(committees)
+                                </div>
+                            }
+                            else
+                            {
+                                // if there is just one Committee
+                                @initialCommittee
+                            }
+                        }
+                    }
+                </dd>
+                <dt class="col-sm-2">
+                    Division(s)
+                </dt>
+                <dd class="col-sm-10">
+                    @{
+                        // getting number of Division
+                        int numberOfDivision = Model.MemberCommitteeEnrolls.Count;
+                        // if there is an Division
+                        if (numberOfDivision > 0)
+                        {
+                            // getting very first Division
+                            string initialDivision = Model.MemberCommitteeEnrolls.FirstOrDefault().Committee.Division.DivisionTitle;
+                            // now for the rest of the Division
+                            if (numberOfDivision > 1)
+                            {
+                                // declaring an empty string
+                                string divisions = "";
+                                var c = Model.MemberCommitteeEnrolls.ToList();
+                                // looping through and adding Division names in the string
+                                for (int i = 1; i < numberOfDivision; i++)
+                                {
+                                    divisions += c[i].Committee.Division.DivisionTitle + " <br />";
+                                }
+                                <a class="" role="button" data-bs-toggle="collapse" href="#collapseHistory@(Model.MemberID)"
+                           aria-expanded="false" aria-controls="collapseHistory@(Model.MemberID)">
+                                    @initialDivision <span class="badge bg-info">@numberOfDivision</span>
+                                </a>
+                                <div class="collapse" id="collapseHistory@(Model.MemberID)">
+                                    @Html.Raw(divisions)
+                                </div>
+                            }
+                            else
+                            {
+                                // if there is just one Division
+                                @initialDivision
+                            }
+                        }
+                    }
+                </dd>
+                @*<dt class="col-sm-2">
+                    Niagara College Staff
+                </dt>
+                <dd class="col-sm-10">
+                    @{
+                        // getting number of Staff
+                        int numberOfstaff = Model.MemberCommitteeEnrolls.Count;
+                        // if there is an Staff
+                        if (numberOfstaff > 0)
+                        {
+                            // getting very first Staff
+                            string initialStaff = Model.MemberCommitteeEnrolls.FirstOrDefault().Committee.NcStaff.StaffFullName;
+                            // now for the rest of the Staff
+                            if (numberOfstaff > 1)
+                            {
+                                // declaring an empty string
+                                string staffs = "";
+                                var c = Model.MemberCommitteeEnrolls.ToList();
+                                // looping through and adding Staff names in the string
+                                for (int i = 1; i < numberOfstaff; i++)
+                                {
+                                    staffs += c[i].Committee.NcStaff.StaffFullName + " <br />";
+                                }
+                                <a class="" role="button" data-bs-toggle="collapse" href="#collapseHistory@(Model.MemberID)"
+                           aria-expanded="false" aria-controls="collapseHistory@(Model.MemberID)">
+                                    @initialStaff <span class="badge bg-info">@numberOfstaff</span>
+                                </a>
+                                <div class="collapse" id="collapseHistory@(Model.MemberID)">
+                                    @Html.Raw(staffs)
+                                </div>
+                            }
+                            else
+                            {
+                                // if there is just one Staff
+                                @initialStaff
+                            }
+                        }
+                    }
+                </dd>*@
+            </dl>
+        </fieldset>
+    </div>
+    <div class="margin-top">
+        <a asp-action="Edit" asp-route-id="@Model?.MemberID">Edit</a> |
+        <a href='@ViewData["returnURL"]'>Back to List</a>
+    </div>
+</div>
+

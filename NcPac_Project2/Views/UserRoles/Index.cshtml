@@ -1,0 +1,55 @@
+﻿@model IEnumerable<NcPac_Project2.ViewModels.UserVM> //TODO: Add this to the navigation link or navbar when is created - NMK
+
+@{
+    ViewBag.Title = "Account Management";
+}
+
+<div class="jumbotron jumbotron-fluid margin-bottom" style="background-color:#0077be; color:#fff;">
+    <div class="container">
+        <h1 class="display-4">Accounts (User/Roles)</h1>
+        <p class="lead">Manage Accounts</p>
+    </div>
+</div>
+
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserRoles)
+                </th>
+                <th>
+                    Operations
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserName)
+                    </td>
+                    <td>
+                        @{
+                            foreach (var r in item.UserRoles)
+                            {
+                                @:  @r <br />
+                            }
+                        }
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+
+    </table>
+</div>

@@ -1,0 +1,331 @@
+﻿@page
+@using NcPac_Project2.Models
+@using NcPac_Project2.Models.Enums
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+
+@*Jumbotron Program Advisory Committees*@
+<div class="jumbotron jumbotron-fluid" style="background-color:#0077be; color:#fff;">
+    <div class="container">
+        <h1 class="display-4">Program Advisory Committees</h1>
+        <p class="lead">PAC Membership Form</p>
+    </div>
+</div>
+
+@*NC Logo and Title Form*@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-1">
+            @*Niagara College Image*@
+            <img class="mb-4" src="~/images/NC-Logo-2022-Pos.png" alt="Niagara College Logo" style="max-height: 80px; max-width: 96px" class="img-fluid rounded" />
+        </div>
+        <div class="col-sm-11" style="text-align:right">
+            Biographical Data For Potential Membership On Program Advisory Commitees
+        </div>
+
+    </div>
+
+    @*Register Form*@
+    <div class="row">
+        <div class="col-md-5" style="width:100%">
+            <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                <hr />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+             
+                @*Stepper Registrarion*@
+
+                @*Steps*@
+                <div class="container">
+                    <div class="accordion" id="accordionExample">
+                        <div class="steps">
+                            <progress id="progress" value=0 max=100></progress>
+                            <div class="step-item">
+                                <button class="step-button text-center" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    1
+                                </button>
+                                <div class="step-title">
+                                    Personal Information
+                                </div>
+                            </div>
+                            <div class="step-item">
+                                <button class="step-button text-center collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    2
+                                </button>
+                                <div class="step-title">
+                                    Employment Information
+                                </div>
+                            </div>
+                            <div class="step-item">
+                                <button class="step-button text-center collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    3
+                                </button>
+                                <div class="step-title">
+                                    About Personal Information
+                                </div>
+                            </div>
+                        </div>
+
+                       
+                        @*Form*@
+                        @*Step 1*@
+                        @*Personal Information*@
+                        <div class="card">
+                            <div id="headingOne">
+                            </div>
+                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                                 data-bs-parent="#accordionExample">
+                                <div class="card-body">
+
+                                    @*TODO: The Select Form AcademicDivision - Advisory Committee needs to be updates with the correct values - NMK*@
+                                    
+                                    @*We need to confirm with the customer/faculty members if we are including the 5 PAC divisions - NMK*@
+                                    @*<div class="form-floating">
+                                        <select id="inputAcademicDivision" class="form-select" aria-required="true">
+                                            <option selected>Choose an Academic Division</option>
+                                            <option value="Media, Trades & Technology">Media, Trades & Technology</option>
+                                            <option value="2">Division 2</option>
+                                            <option value="3">Division 3...</option>
+                                        </select>
+                                    </div>
+*@
+
+
+                                    <div class="form-floating">
+                                        <select asp-for="Input.Committees" asp-items="Html.GetEnumSelectList<Committees>()" class="form-select">
+                                            <option value="">Choose a Committee</option>
+                                        </select>
+                                        <span asp-validation-for="Input.Committees" class="text-danger"></span>
+                                    </div>
+
+
+                                    <div class="form-floating">
+                                        <select class="form-select" aria-required="true" >
+                                            <option selected>Choose a Salutation</option>
+                                            <option value="Mr.">Mr.</option>
+                                            <option value="Mrs.">Mrs.</option>
+                                            <option value="Ms.">Ms.</option>
+                                            <option value="Dr.">Dr.</option>
+                                        </select>
+                                    </div>
+                                    @*Name*@
+                                    <span class="requiretop"><b>NOTE:</b> Fields marked by "*" are required fields</span>
+                                    <div class="form-floating">
+                                        <input asp-for="Input.Name" id="txtName" class="form-control" aria-required="true" />
+                                        <label asp-for="Input.Name">Name - E.g. John Doe</label><span class="requirefield">*</span>
+                                        <span asp-validation-for="Input.Name" class="text-danger"></span>
+                                    </div>
+                                    @*Address*@
+                                    <div class="form-floating">
+                                        <input asp-for="Input.StreetAddress" id="txtAddress" class="form-control" aria-required="true" />
+                                        <label asp-for="Input.StreetAddress">Street Address  - E.g. 100 Niagara College Boulevard</label><span class="requirefield">*</span>
+                                        <span asp-validation-for="Input.StreetAddress" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-floating">
+                                        <input asp-for="Input.City" id="txtCity" class="form-control" aria-required="true" />
+                                        <label asp-for="Input.City">
+                                            City - E.g. Welland
+                                        </label><span class="requirefield">*</span>
+                                        <span asp-validation-for="Input.City" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-floating">
+                                        <select asp-for="Input.Province" asp-items="Html.GetEnumSelectList<Provinces>()" class="form-select">
+                                            <option value="">Choose a Province</option>
+                                        </select><span class="requirefield">*</span>
+                                            <span asp-validation-for="Input.Province" class="text-danger"></span>
+                                    </div>
+
+
+                                    <div class="form-floating">
+                                        <input asp-for="Input.PostalCode" id="txtPostalCode" class="form-control" aria-required="true" />
+                                        <label asp-for="Input.PostalCode">
+                                            Postal Code - E.g. L3C 7L3 or L3C7L3
+                                        </label><span class="requirefield">*</span>
+                                        <span asp-validation-for="Input.PostalCode" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-floating">
+                                        <input asp-for="Input.TelephoneNumber" id="txtTelephoneNumber" class="form-control" aria-required="true" />
+                                        <label asp-for="Input.TelephoneNumber">
+                                            Telephone Number - E.g. 1234567890
+                                        </label><span class="requirefield">*</span>
+                                        <span asp-validation-for="Input.TelephoneNumber" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-floating">
+                                        <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
+                                        <label asp-for="Input.Email">Email - E.g. johndoe@email.com</label><span class="requirefield">*</span>
+                                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-floating">
+                                        <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" />
+                                        <label asp-for="Input.Password">Password - Must be at least 6  and at max 100 characters long</label><span class="requirefield">*</span>
+                                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-floating">
+                                        <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" />
+                                        <label asp-for="Input.ConfirmPassword"></label><span class="requirefield">*</span>
+                                        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        @*Step 2
+                        Employment Information*@
+                        <div class="card">
+                            <div id="headingTwo">
+                            </div>
+                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                <div class="card-body">
+                                    <div class="form-floating">
+                                        <input asp-for="Input.PositionTitle" id="txtPositionTitle" class="form-control" aria-required="true" />
+                                        <label asp-for="Input.PositionTitle">
+                                            Position Title - E.g. Computer Programming
+                                        </label><span class="requirefield">*</span>
+                                        <span asp-validation-for="Input.PositionTitle" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-floating">
+                                        <input asp-for="Input.CompanyName" id="txtCompany Name" class="form-control" aria-required="true" />
+                                        <label asp-for="Input.CompanyName">
+                                            Company Name - E.g. My Company
+                                        </label><span class="requirefield">*</span>
+                                        <span asp-validation-for="Input.CompanyName" class="text-danger"></span>
+                                    </div>
+
+
+
+                                    <div class="form-floating">
+                                        <input asp-for="Input.CompanyStreetAddress" id="txtCompanyAddress" class="form-control" aria-required="true" />
+                                        <label asp-for="Input.CompanyStreetAddress">
+                                            Company Street Address - E.g. 100 Niagara College Boulevard
+                                        </label><span class="requirefield">*</span>
+                                        <span asp-validation-for="Input.CompanyStreetAddress" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-floating">
+                                        <input asp-for="Input.CompanyCity" id="txtCompanyCity" class="form-control" aria-required="true" />
+                                        <label asp-for="Input.CompanyCity">
+                                            Company City - E.g. Welland
+                                        </label>
+                                        <span asp-validation-for="Input.CompanyCity" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-floating">
+                                        <select asp-for="Input.CompanyProvince" asp-items="Html.GetEnumSelectList<Provinces>()" class="form-select">
+                                            <option value="">Choose a Province</option>
+                                        </select>
+                                            <span asp-validation-for="Input.CompanyProvince" class="text-danger"></span>
+                                    </div>
+ 
+
+                                    <div class="form-floating">
+                                        <input asp-for="Input.CompanyPostalCode" id="txtCompanyPostalCode" class="form-control" aria-required="true" />
+                                        <label asp-for="Input.CompanyPostalCode">
+                                            Company Postal Code - E.g. L3C 7L3
+                                        </label><span class="requirefield">*</span>
+                                        <span asp-validation-for="Input.CompanyPostalCode" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-floating">
+                                        <input asp-for="Input.CompanyTelephoneNumber" id="txtCompanyTelephoneNumber" class="form-control" aria-required="true" />
+                                        <label asp-for="Input.CompanyTelephoneNumber">
+                                            Company Telephone Number - E.g. 1234567890
+                                        </label>
+                                        <span asp-validation-for="Input.CompanyTelephoneNumber" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-floating">
+                                        <input asp-for="Input.CompanyEmail" id="txtCompanyEmail" class="form-control" aria-required="true" />
+                                        <label asp-for="Input.CompanyEmail">
+                                            Company Email - E.g. mycompanyemail@company.com
+                                        </label><span class="requirefield">*</span>
+                                        <span asp-validation-for="Input.CompanyEmail" class="text-danger"></span>
+                                    </div>
+                                    </br>
+                                    <label for="rdHome">Preferred Mailing Address: </label><span class="requirefield">*</span>
+                                    </br>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="rdAddress" id="rdHome" value="home" checked>
+                                        <label class="form-check-label" for="rdHome">Personal</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="rdAddress" id="rdWork" value="work">
+                                        <label class="form-check-label" for="rdWork">Work</label>
+                                    </div>
+
+                                    <p></p>
+                                    <label for="txtEducationSummary">Educational Summary: (Please provide educational and professional credentials) </label><span class="requirefield">*</span>
+                                    <div class="form-floating">
+                                        <textarea class="form-control" id="txtEducationSummary" rows="3"></textarea>
+                                    </div>
+
+                                    <p></p>
+                                    <label for="rdHome">Are You a Niagara College Graduate?: </label><span class="requirefield">*</span>
+                                    </br>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="rdSelection" id="rdYes" value="yes" checked>
+                                        <label class="form-check-label" for="rdYes">Yes</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="rdSelection" id="rdNo" value="no">
+                                        <label class="form-check-label" for="rdNo">No</label>
+                                    </div>
+                                    <p></p>
+
+                                    <label for="txtEducationSummary">Occupational Summary:  (Briefly summarize specialized background knowledge or positions held.) </label>
+                                    <div class="form-floating">
+                                        <textarea class="form-control" id="txtOccupationalSummary" rows="3"></textarea>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        @*Step 3
+                        Privacy Information Use*@
+                        <div class="card">
+                            <div id="headingThree">
+                            </div>
+                            <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
+                                 data-bs-parent="#accordionExample">
+                                <div class="card-body">
+                                    <p>
+                                         Personal information contained on this form is collected under the legal authority of the Ministry of Colleges and Universities
+                            Act, R.S.O. 1980, Chapter 272, s.s: R.R.O. 1980, Regulation 640.  This information will be used by the College to:  (a)
+                            determine eligibility for membership on Advisory Committee and (b) if appointed, for administrative functions related to the position.
+                            Questions about this collection should be directed to the Executive Secretary to the Board of Governors, Niagara College, P.O. Box 1005,
+                            Welland, Ontario, L3B 5S2,Telephone # (905) 735-2211.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+                </div>
+                
+
+       
+                
+            </form>
+        
+            </br>
+            </br>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

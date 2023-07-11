@@ -1,0 +1,8 @@
+﻿Add-Migration -Context ApplicationDbContext -OutputDir Data\Migrations Initial
+Update-Database -Context ApplicationDbContext
+
+Add-Migration -Context NC_PAC_Context -o Data\NC_PAC_Migrations Initial
+Update-Database -Context NC_PAC_Context
+
+ExtraMigrationStep.Steps(migrationBuilder);
+

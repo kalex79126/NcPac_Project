@@ -1,0 +1,76 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<IdentityUser> signInManager
+
+@*Layout only to hidde links in Register Page - NMK*@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NCPAC | @ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/NcPac_Project2.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="headerback" style="display:block;">
+        <div class="logo">
+            <a href="https://www.niagaracollege.ca/">
+                <h1 style="background-image: url('https://www.niagaracollege.ca/policies/wp-content/themes/niagara-college-departments-v2/img/nc-logo.svg');width:280px;height:42px;background-repeat:no-repeat;position:relative;top:3px;font-weight:500;">
+                    <span style="clip:rect(1px, 1px, 1px, 1px);height:1px !important;width:1px;position:absolute;">Niagara College Canada</span>
+                </h1>
+            </a>
+        </div>
+
+    </header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm headerback  box-shadow" style="background:#3e3e3e;">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation" disabled>
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                </ul>
+                    <a class="nav-link dropdown-toggle" style="color:white" href="#" id="navbarIDDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Welcome! <b>|</b> <img src="~/images/setting.png" style="height:30px; width:30px" /> <b class="caret"></b>
+                    </a>
+            </div>
+        </div>
+
+    </nav>
+
+    <div>
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+
+    @*Footer*@
+    <footer class="border-top text-muted">
+        <div class="container text-center">
+
+            &copy; Copyright Niagara College Canada. All Rights Reserved.
+
+            <a href="https://www.niagaracollege.ca" style="border-left:1px solid #000;padding-left:10px;">Home</a>
+
+            <a href="https://www.niagaracollege.ca/disclaimer/" style="padding-left:5px;">Disclaimer</a>
+
+            <a href="http://www.niagaracollege.ca/careers" style="padding-left:5px">Careers</a>
+
+            <a href="https://www.niagaracollege.ca/contact/" style="padding-left:5px">Contact Us</a>
+
+
+        </div>
+
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

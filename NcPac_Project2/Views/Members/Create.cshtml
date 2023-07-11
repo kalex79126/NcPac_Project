@@ -1,0 +1,240 @@
+﻿@model NcPac_Project2.Models.Member
+
+@{
+    ViewData["Title"] = "Add Member";
+}
+
+<div class="jumbotron jumbotron-fluid margin-bottom" style="background-color:#0077be; color:#fff;">
+    <div class="container">
+        <h1 class="display-4">Add New Member</h1>
+        <p class="lead">Fill out the form</p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <fieldset>
+                <legend>Personal Information</legend>
+                <hr />
+                <span class="requiretop"><b>NOTE:</b> Fields marked by "*" are required fields</span>
+                <br />
+                <div class="form-group">
+                    <label asp-for="MemberFirstName" class="control-label"></label><span class="requirefield">*</span>
+                    <input asp-for="MemberFirstName" class="form-control" placeholder="First Name - E.g. John" />
+                    <span asp-validation-for="MemberFirstName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MemberLastName" class="control-label"></label><span class="requirefield">*</span>
+                    <input asp-for="MemberLastName" class="form-control" placeholder="Last Name - E.g. Doe" />
+                    <span asp-validation-for="MemberLastName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MemberAddress" class="control-label"></label><span class="requirefield">*</span>
+                    <input asp-for="MemberAddress" class="form-control" placeholder="Street Address  - E.g. 100 Niagara College Boulevard" />
+                    <span asp-validation-for="MemberAddress" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MemberCity" class="control-label"></label><span class="requirefield">*</span>
+                    <input asp-for="MemberCity" class="form-control" placeholder="City - E.g. Welland" />
+                    <span asp-validation-for="MemberCity" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MemberProvince" class="control-label"></label><span class="requirefield">*</span>
+                    <select asp-for="MemberProvince" class="form-control" asp-items="ViewBag.MemberProvinces">
+                        <option value="">Select a Province</option>
+                    </select>
+                    <span asp-validation-for="MemberProvince" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MemberPostalCode" class="control-label"></label><span class="requirefield">*</span>
+                    <input asp-for="MemberPostalCode" class="form-control" placeholder="Postal Code - E.g. L3C 7L3" />
+                    <span asp-validation-for="MemberPostalCode" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MemberPhoneNo" class="control-label"></label><span class="requirefield">*</span>
+                    <input asp-for="MemberPhoneNo" class="form-control" placeholder="Telephone Number - E.g. 1234567890" />
+                    <span asp-validation-for="MemberPhoneNo" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MemberEmail" class="control-label"></label><span class="requirefield">*</span>
+                    <input asp-for="MemberEmail" class="form-control" placeholder="Email - E.g. johndoe@email.com" />
+                    <span asp-validation-for="MemberEmail" class="text-danger"></span>
+                </div>
+            </fieldset>
+            <hr />
+            <fieldset>
+                <legend>Employment Information</legend>
+                <hr />
+                <div class="form-group">
+                    <label asp-for="MemberPosition" class="control-label"></label><span class="requirefield">*</span>
+                    <input asp-for="MemberPosition" class="form-control" placeholder="Position Title - E.g. Computer Programming" />
+                    <span asp-validation-for="MemberPosition" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MemberCompany" class="control-label"></label><span class="requirefield">*</span>
+                    <input asp-for="MemberCompany" class="form-control" placeholder="Company Name - E.g. My Company" />
+                    <span asp-validation-for="MemberCompany" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MemberEmAddress" class="control-label"></label><span class="requirefield">*</span>
+                    <input asp-for="MemberEmAddress" class="form-control" placeholder="Company Street Address - E.g. 100 Niagara College Boulevard" />
+                    <span asp-validation-for="MemberEmAddress" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MemberEmCity" class="control-label"></label>
+                    <input asp-for="MemberEmCity" class="form-control" placeholder="Company City - E.g. Welland" />
+                    <span asp-validation-for="MemberEmCity" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MemberEmProvince" class="control-label"></label>
+                    <select asp-for="MemberEmProvince" class="form-control" asp-items="ViewBag.EmpProvinces">
+                        <option value="">Select a Province</option>
+                    </select>
+                    <span asp-validation-for="MemberEmProvince" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MemberEmPostalCode" class="control-label"></label><span class="requirefield">*</span>
+                    <input asp-for="MemberEmPostalCode" class="form-control" placeholder="Company Postal Code - E.g. L3C 7L3" />
+                    <span asp-validation-for="MemberEmPostalCode" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MemberEmPhoneNo" class="control-label"></label>
+                    <input asp-for="MemberEmPhoneNo" class="form-control" placeholder="Company Telephone Number - E.g. 1234567890" />
+                    <span asp-validation-for="MemberEmPhoneNo" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MemberEmEmail" class="control-label"></label><span class="requirefield">*</span>
+                    <input asp-for="MemberEmEmail" class="form-control" placeholder="Company Email - E.g. mycompanyemail@company.com" />
+                    <span asp-validation-for="MemberEmEmail" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MemberIsMailingHome" class="control-label"></label><span class="requirefield">*</span><br />
+                    @Html.RadioButtonFor(model => model.MemberIsMailingHome, "Personal")
+                    Personal &nbsp;
+                    @Html.RadioButtonFor(model => model.MemberIsMailingHome, "Work")
+                    Work
+                    <!--<label asp-for="MemberIsMailingHome" class="control-label"></label><br />
+                    <input class="form-check-input" checked="checked"
+                           id="Work_Home"
+                           name="Work_Home"
+                           type="radio"
+                           value="Personal" /> Personal &nbsp;
+                    <input class="form-check-input" id="Work_Home"
+                           name="Work_Home"
+                           type="radio"
+                           value="Work" /> Work -->
+                </div>
+                <div class="form-group">
+                    <label asp-for="MemberIsNcGrad" class="control-label"></label><span class="requirefield">*</span><br />
+                    @Html.RadioButtonFor(model => model.MemberIsNcGrad, "Yes")
+                    Yes &nbsp;
+                    @Html.RadioButtonFor(model => model.MemberIsNcGrad, "No")
+                    No
+                    <!--<label asp-for="MemberIsNcGrad" class="control-label"></label><br />
+                    <input class="form-check-input" checked="checked"
+                           id="Nc_Grad"
+                           name="Nc_Grad"
+                           type="radio"
+                           value="Yes" /> Yes &nbsp;
+                    <input class="form-check-input" id="Nc_Grad"
+                           name="Nc_Grad"
+                           type="radio"
+                           value="No" /> No-->
+                </div>
+                <div class="form-group">
+                    <label asp-for="MemberEducation" class="control-label"></label><span class="requirefield">*</span>
+                    <textarea asp-for="MemberEducation" class="form-control" placeholder="Master Degree in Computer Science"></textarea>
+                    <span asp-validation-for="MemberEducation" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MemberParticipation" class="control-label"></label>
+                    <textarea asp-for="MemberParticipation" class="form-control"></textarea>
+                    <span asp-validation-for="MemberParticipation" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MemberRegisteredAt" class="control-label"></label><span class="requirefield">*</span>
+                    <input asp-for="MemberRegisteredAt" class="form-control" />
+                    <span asp-validation-for="MemberRegisteredAt" class="text-danger"></span>
+                </div>
+                @*<div class="form-group">
+                <label asp-for="MemberLastLogin" class="control-label"></label>
+                <input asp-for="MemberLastLogin" class="form-control" />
+                <span asp-validation-for="MemberLastLogin" class="text-danger"></span>
+                </div>*@
+                <div class="form-group">
+                    <label asp-for="MemberRenewalDate" class="control-label"></label><span class="requirefield">*</span>
+                    <input asp-for="MemberRenewalDate" class="form-control" />
+                    <span asp-validation-for="MemberRenewalDate" class="text-danger"></span>
+                </div>
+                @*<div class="form-group">
+                    <label asp-for="MemberIsActive" class="control-label"></label><span class="requirefield">*</span><br />
+                    @Html.RadioButtonFor(model => model.MemberIsActive, "Active")
+                    Active &nbsp;
+                    @Html.RadioButtonFor(model => model.MemberIsActive, "Inactive")
+                    Inactive
+                    <!--<label asp-for="MemberIsActive" class="control-label"></label><br />
+                    <input class="form-check-input" checked="checked"
+                           id="Active"
+                           name="Active"
+                           type="radio"
+                           value="Active" /> Active &nbsp;
+                    <input class="form-check-input" id="Active"
+                           name="Active"
+                           type="radio"
+                           value="Inactive" /> Inactive-->
+                </div>*@
+            </fieldset>
+            <hr />
+            <fieldset>
+                <legend>Committee Information</legend>
+                <hr />
+                <div class="form-group">
+                <label class="control-label">@Html.DisplayNameFor(model => model.MemberCommitteeEnrolls)</label>
+                <br />
+                <div class="col-md-offset-1">
+                    <table>
+                        <tr>
+                            @{
+                                int c = 0;
+                                List<NcPac_Project2.ViewModels.CheckBoxViewModel> checkbox = ViewBag.CommitteeList;
+                                foreach (var cb in checkbox)
+                                {
+                                    if (c++ % 2 == 0)
+                                    {
+                                    @:</tr><tr>
+                                    }
+                                    @:<td>
+                                        <input type="checkbox"
+                                               name="selectedCommittees"
+                                               value="@cb.ID"
+                                               @(Html.Raw(cb.IsAssigned ? "checked=\"checked\"" : "")) />
+                                        @cb.Text @:&nbsp;&nbsp;
+                                    @:</td>
+                                }
+                            @:</tr>
+                            }
+                        </table>
+                    </div>
+            </div>
+            </fieldset>
+            <div class="form-group">
+                <input type="submit" value="Add Member" title="Click to add new member" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+
+    <div class="margin-top">
+        <a href='@ViewData["returnURL"]'>Back to List</a>
+    </div>
+</div>
+
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

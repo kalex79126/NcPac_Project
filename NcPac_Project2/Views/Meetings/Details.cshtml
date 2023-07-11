@@ -1,0 +1,155 @@
+﻿@model NcPac_Project2.Models.Meeting
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="jumbotron jumbotron-fluid margin-bottom" style="background-color:#0077be; color:#fff;">
+    <div class="container">
+        <h1 class="display-4">Meeting Details</h1>
+        <p class="lead">Check entire information</p>
+    </div>
+</div>
+<div class="container">
+    <div>
+        <fieldset>
+            <legend>Meeting Details</legend>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.MeetingTitle)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.MeetingTitle)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Committee)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Committee.CommitteeName)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.MeetingDate)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.MeetingDate)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.MeetingMinutes)
+                </dt>
+                <dd class="col-sm-10">
+                    @{
+                        int fileCount = Model.MeetingMinutes.Count;
+                        if (fileCount > 0)
+                        {
+                            var firstFile = Model.MeetingMinutes.FirstOrDefault();
+                            if (fileCount > 1)
+                            {
+                                <a class="" role="button" data-bs-toggle="collapse" href="#collapseDocs@(Model.MeetingID)" aria-expanded="false" aria-controls="collapseDocs@(Model.MeetingID)">
+                                    <span class="badge bg-info">@fileCount</span> Minutes...
+                                </a>
+                                <div class="collapse" id="collapseDocs@(Model.MeetingID)">
+                                    @{
+                                        foreach (var m in Model.MeetingMinutes)
+                                        {
+                                            <a asp-action="Download" asp-route-id="@m.ID">@m.FileName</a> <br />
+                                        }
+                                    }
+                                </div>
+                            }
+                            else
+                            {
+                                <a asp-action="Download" asp-route-id="@firstFile.ID">@firstFile.FileName</a>
+                            }
+                        }
+                    }
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Attendances)
+                </dt>
+                <dd class="col-sm-10">
+                    @{
+                        int numberOfMembers = Model.Attendances.Count();
+                        if (numberOfMembers > 0)
+                        {
+                            string initialMember = Model.Attendances.FirstOrDefault().Member.MemFullName;
+                            if (numberOfMembers > 1)
+                            {
+                                string members = "";
+                                var c = Model.Attendances.ToList();
+                                for (int i = 1; i < numberOfMembers; i++)
+                                {
+                                    members += c[i].Member.MemFullName + " <br />";
+                                }
+                                <a class="" role="button" data-bs-toggle="collapse" href="#collapseHistory@(Model.MeetingID)"
+                           aria-expanded="false" aria-controls="collapseHistory@(Model.MeetingID)">
+                                    @initialMember <span class="badge bg-info">@numberOfMembers</span>
+                                </a>
+                                <div class="collapse" id="collapseHistory@(Model.MeetingID)">
+                                    @Html.Raw(members)
+                                </div>
+                            }
+                            else
+                            {
+                                @initialMember
+                            }
+                        }
+                    }
+                </dd>
+                @*<dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.MeetingTime)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.MeetingTime.Value.TimeOfDay)
+                </dd>*@
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.MeetingNotes)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.MeetingNotes)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.ActionItems)
+                </dt>
+                <dd class="col-sm-10">
+                    @{
+                        int numOfTasks = Model.ActionItems.Count;
+                        if (numOfTasks > 0)
+                        {
+                            string task = Model.ActionItems.FirstOrDefault(m => m.MeetingID == Model.MeetingID).ActionName;
+                            string date = Model.ActionItems.FirstOrDefault(m => m.MeetingID == Model.MeetingID).ActionDueDate.ToString();
+                            if (numOfTasks > 1)
+                            {
+                                string tasks = "";
+                                string dates = "";
+                                var m = Model.ActionItems.Where(m => m.MeetingID == Model.MeetingID).ToList();
+                                for (int i = 1; i < numOfTasks; i++)
+                                {
+                                    tasks += m[i].ActionName + " <br />";
+                                    dates += m[i].ActionDueDate.ToString() + " <br />";
+                                }
+                                <a class="" role="button" data-bs-toggle="collapse" href="#collapseSpecalty@(Model.MeetingID)"
+                           aria-expanded="false" aria-controls="collapseSpecalty@(Model.MeetingID)">
+                                    @task - @date<span class="badge bg-info">@numOfTasks</span>
+                                </a>
+                                <div class="collapse" id="collapseSpecalty@(Model.MeetingID)">
+                                    @Html.Raw(tasks)
+                                </div>
+                            }
+                            else
+                            {
+                                <p>@task - @date</p>
+                            }
+                        }
+                    }
+                </dd>
+            </dl>
+        </fieldset>
+    </div>
+
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model?.MeetingID">Edit</a> |
+        <a href='@ViewData["returnURL"]'>Back to List</a>
+    </div>
+</div>
+

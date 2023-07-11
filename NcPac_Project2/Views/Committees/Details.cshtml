@@ -1,0 +1,46 @@
+﻿@model NcPac_Project2.Models.Committee
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="jumbotron jumbotron-fluid margin-bottom" style="background-color:#0077be; color:#fff;">
+    <div class="container">
+        <h1 class="display-4">Committee Details</h1>
+        <p class="lead">Check all information</p>
+    </div>
+</div>
+
+<div class="container">
+    <div>
+        <fieldset>
+            <legend>Committee Details</legend>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.CommitteeName)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.CommitteeName)
+                </dd>
+               @* <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.MemberID)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.MemberID)
+                </dd>*@
+
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Division)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Division.DivisionTitle)
+                </dd>
+            </dl>
+        </fieldset>
+    </div>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model?.CommitteeID">Edit</a> |
+        <a href='@ViewData["returnURL"]'>Back to List</a>
+    </div>
+</div>

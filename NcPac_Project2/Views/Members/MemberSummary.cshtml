@@ -1,0 +1,270 @@
+﻿@model IEnumerable<NcPac_Project2.ViewModels.MemberSummaryVM>
+
+@{
+    ViewData["Title"] = "Member Summary";
+}
+
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.css">
+</head>
+
+@*Jumbotron Program Advisory Committees*@
+<div class="jumbotron jumbotron-fluid" style="background-color:#0077be; color:#fff;">
+    <div class="container">
+        <h1 class="display-4">Members</h1>
+        <p class="lead">Summary & Report</p>
+    </div>
+</div>
+
+<div class="container">
+    <h2>Member Summary</h2>
+    <div class="row">
+        <div class="col-sm-6">
+        </div>
+        <div class="col-sm-3">
+        </div>
+        </div>
+
+    <form asp-controller="Members" asp-action="MemberSummary" method="get">
+        <input type="hidden" name="sortField" value="@ViewData["sortField"]" />
+        <input type="hidden" name="sortDirection" value="@ViewData["sortDirection"]" />
+        <div class="form-horizontal">
+            <button class="onfiltering @(ViewData["FilteringData"]) " style="margin-left:12px" title="Click to open filters" type="button" data-bs-toggle="collapse" id="filterToggle" data-bs-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
+                Filter The Records
+            </button>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="collapse" id="collapseFilter">
+                <div class="card card-body bg-light">
+                    <div class="row">
+                        <div class="d-block d-lg-none">
+                            <div class="form-group">
+                                <label class="control-label">Sort By:</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <input type="checkbox" class="" value="desc"
+                                                   @((ViewData["sortDirection"].ToString() != "asc" ? "checked=\"checked\"" : ""))
+                                                   name="sortDirectionCheck" />&nbsp;&nbsp;Descending
+                                        </div>
+                                    </div>
+                                    <select name="sortFieldID" class="form-control" asp-items="ViewBag.sortFieldID"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Search Last Name:</label>
+                            @Html.TextBox("SearchLast", null, new { @class = "form-control"})
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Search Email Address:</label>
+                            @Html.TextBox("SearchEmail", null, new { @class = "form-control"})
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Search Company Name:</label>
+                            @Html.TextBox("SearchCompany", null, new { @class = "form-control"})
+                        </div>
+                        <div class="form-group col-md-4 dateboxdiv">
+                            <label class="control-label" style="margin-bottom: 8px;">Select Members by Renewal Date:</label>
+                            <br />
+                            <div class="dateboxes">
+                                From
+                            </div>
+                            <div class="dateboxes">
+                                @Html.TextBox("SearchStartDate",null,new { @class = "form-control" , type = "date" })
+                            </div>
+                            <div class="dateboxes">
+                                To
+                            </div>
+                            <div class="dateboxes">
+                                @Html.TextBox("SearchEndDate",null,new { @class = "form-control", type = "date" })
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4 align-self-end filterdiv">
+                            <input type="submit" name="actionButton" value="Filter" title="Filter records on current criteria" class="btn btn-outline-primary" />
+                            <a asp-action="MemberSummary" title="Clear Filters" class="btn btn-outline-dark clearbtn">Clear</a>
+                        </div>
+                        <p><b>NOTE: To sort records just click on field (table header) by which you want to sort the records</b></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+
+
+        <div style="margin-left:87%">
+            <span data-bs-toggle="tooltip" data-bs-placement="right" title="'Export Selected' allows you to select specific Members to export">
+                <div style="display:inline-block">
+                    <div id="toolbarExport">
+                        <select class="form-control">
+                            <option value="">Select an Option</option>
+                            <option value="all">Export All</option>
+                            <option value="selected">Export Selected</option>
+                        </select>
+                    </div>
+
+                </div>
+                <i class="bi bi-question-circle-fill"></i>
+            </span>
+        </div>
+
+
+        <div style="overflow-x:auto;">
+            
+        <table id="memberTableR" class="table-borderless"
+                   data-click-to-select="true"
+                   data-toolbar="#toolbar"
+                   data-show-export="true"
+                   data-show-columns="true"
+                   >
+                <thead>
+                    <tr>
+                        <th>
+
+                        </th>
+                        <th data-sortable="true">
+                            @Html.DisplayNameFor(model => model.FullName)
+                        </th>
+                    <th data-sortable="true">
+                            @Html.DisplayNameFor(model => model.Email)
+                        </th>
+                    <th data-sortable="true">
+                            @Html.DisplayNameFor(model => model.Phone)
+                        </th>
+                    <th data-sortable="true">
+                            @Html.DisplayNameFor(model => model.City)
+                        </th>
+                    <th data-sortable="true">
+                            @Html.DisplayNameFor(model => model.Address)
+                        </th>
+
+                    <th data-sortable="true">
+                            @Html.DisplayNameFor(model => model.JobTitle)
+                        </th>
+                    <th data-sortable="true">
+                            @Html.DisplayNameFor(model => model.Company)
+                        </th>
+                    <th data-sortable="true">
+                            @Html.DisplayNameFor(model => model.NcGrad)
+                        </th>
+                    <th data-sortable="true">
+                            @Html.DisplayNameFor(model => model.RegisteredAt)
+                        </th>
+                    <th data-sortable="true">
+                            @Html.DisplayNameFor(model => model.AppointedDate)
+                        </th>
+                    <th data-sortable="true">
+                            @Html.DisplayNameFor(model => model.RenewedDate)
+                        </th>
+                    <th data-sortable="true">
+                            @Html.DisplayNameFor(model => model.LastAttendanceDate)
+                        </th>
+                    <th data-sortable="true">
+                            @Html.DisplayNameFor(model => model.NumberOfYearsPac)
+                        </th>
+                    <th data-sortable="true">
+                            @Html.DisplayNameFor(model => model.CommitteeName)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr style="white-space: nowrap;">
+                            <td>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FullName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PhoneFormat)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.City)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Address)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.JobTitle)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Company)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NcGrad)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.RegisteredAt)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.GetAppointedDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.RenewedDate)
+                            </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LastAttendanceDate)
+                        </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PacYears)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CommitteeName)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+           
+            </div>
+
+
+    </form>
+    </br>
+    <a class="link-primary" asp-area="" asp-controller="Members" asp-action="Index">Back to Members</a>
+</div>
+
+
+@section Scripts {
+    <script src="https://unpkg.com/bootstrap-table@1.21.3/dist/bootstrap-table.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin@1.10.21/tableExport.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin@1.10.21/libs/jsPDF/jspdf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin@1.10.21/libs/jsPDF-AutoTable/jspdf.plugin.autotable.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.21.3/dist/extensions/export/bootstrap-table-export.min.js"></script>
+    <link rel="stylesheet" href="~/css/site.css"/>
+
+    <script>
+        var $table = $('#memberTableR')
+        
+        //var $button = $('#btnRefresh')
+        //$(function () {
+        //    $button.click(function () {
+        //        $table.bootstrapTable('refresh')
+        //    })
+        //})
+
+
+        $(function () {
+            $('#toolbarExport').find('select').change(function () {
+                $table.bootstrapTable('destroy').bootstrapTable({
+                    exportDataType: $(this).val(),
+                    exportTypes: ['excel'],
+                    columns: [
+                        {
+                            field: 'state',
+                            checkbox: true,
+                            visible: $(this).val() === 'selected'
+                        }
+                    ]
+                });
+            }).trigger('change')
+        });
+    </script>
+
+
+    }

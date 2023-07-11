@@ -1,0 +1,52 @@
+﻿@model NcPac_Project2.Models.MeetingDocument
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<div class="jumbotron jumbotron-fluid margin-bottom" style="background-color:#0077be; color:#fff;">
+    <div class="container">
+        <h1 class="display-4">Document/Minutes Delete</h1>
+        <p class="lead">Are you sure you want to delete this?</p>
+    </div>
+</div>
+<div class="container">
+    <div>
+        <fieldset>
+            <h4>Document Details</h4>
+            <hr />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Meeting)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Meeting.MeetingTitle)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.FileName)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.FileName)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.MimeType)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.MimeType)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+            </dl>
+        </fieldset>
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="ID" />
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            <a asp-action="Index">Back to Document List</a>
+        </form>
+    </div>
+</div>

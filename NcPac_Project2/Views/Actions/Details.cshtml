@@ -1,0 +1,111 @@
+﻿@model NcPac_Project2.Models.ActionItem
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="jumbotron jumbotron-fluid margin-bottom" style="background-color:#0077be; color:#fff;">
+    <div class="container">
+        <h1 class="display-4">Action Items Details</h1>
+        <p class="lead">Check entire information</p>
+    </div>
+</div>
+
+<div class="container">
+    <div>
+        <fieldset>
+            <legend>Action Item Details</legend>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.ActionName)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.ActionName)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.ActionDescription)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.ActionDescription)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.ActionDueDate)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.ActionDueDate)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Member)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Member.MemFullName)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Meeting)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Meeting.MeetingTitle)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Meeting.MeetingDate)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Meeting.MeetingDate)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Meeting.Committee)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Meeting.Committee.CommitteeName)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.IsCompleted)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.IsCompleted)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.SupplimentaryDocuments)
+                </dt>
+                <dd class="col-sm-10">
+                    @{
+                        int fileCount = Model.SupplimentaryDocuments.Count;
+                        if (fileCount > 0)
+                        {
+                            var firstFile = Model.SupplimentaryDocuments.FirstOrDefault();
+                            if (fileCount > 1)
+                            {
+                                <a class="" role="button" data-bs-toggle="collapse" href="#collapseDocs@(Model.ActionID)" aria-expanded="false" aria-controls="collapseDocs@(Model.ActionID)">
+                                    <span class="badge bg-info">@fileCount</span> Documents...
+                                </a>
+                                <div class="collapse" id="collapseDocs@(Model.ActionID)">
+                                    @{
+                                        foreach (var m in Model.SupplimentaryDocuments)
+                                        {
+                                            <a asp-action="Download" asp-route-id="@m.ID">@m.FileName</a> <br />
+                                        }
+                                    }
+                                </div>
+                            }
+                            else
+                            {
+                                <a asp-action="Download" asp-route-id="@firstFile.ID">@firstFile.FileName</a>
+                            }
+                        }
+                    }
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.ActionNotes)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.ActionNotes)
+                </dd>
+            </dl>
+        </fieldset>
+    </div>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model?.ActionID">Edit</a> |
+        <a href='@ViewData["returnURL"]'>Back to List</a>
+    </div>
+</div>

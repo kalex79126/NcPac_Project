@@ -1,0 +1,197 @@
+﻿@model IEnumerable<NcPac_Project2.Models.Meeting>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="jumbotron jumbotron-fluid margin-bottom" style="background-color:#0077be; color:#fff;">
+    <div class="container">
+        <h1 class="display-4">Meetings</h1>
+        <p class="lead">Manage Meetings and Meeting Minutes</p>
+    </div>
+</div>
+
+@if (TempData["Message"] != null)
+{
+    <div class="container">
+        <div class="alert alert-success">
+            <strong>Success !</strong> @TempData["Message"]
+        </div>
+    </div>
+}
+
+<div class="container">
+    <form asp-action="Index" method="get">
+        <input type="hidden" name="sortField" value="@ViewData["sortField"]" />
+        <input type="hidden" name="sortDirection" value="@ViewData["sortDirection"]" />
+        <div class="form-horizontal">
+            <div class="btnboxdiv">
+                <div class="btnboxes">
+                    @if (User.IsInRole("Top Admin"))
+                    {
+                        <input type="button" value="Create New Meeting" title="Click to open a form to add new Meeting" class="floatbuttonleft" onclick="location.href='@Url.Action("Create", "Meetings")'" />
+                    }
+                </div>
+                <div class="btnboxes">
+                    <button class="onfiltering @(ViewData["FilteringData"])" title="Click to open filters" type="button" data-bs-toggle="collapse" id="filterToggle" data-bs-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
+                        Filter The Records
+                    </button>
+                </div>
+            </div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="collapse" id="collapseFilter">
+                <div class="card card-body bg-light">
+                    <div class="row">
+                        <div class="d-block d-lg-none">
+                            <div class="form-group">
+                                <label class="control-label">Sort By:</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <input type="checkbox" class="" value="desc"
+                                                   @((ViewData["sortDirection"].ToString() != "asc" ? "checked=\"checked\"" : ""))
+                                                   name="sortDirectionCheck" />&nbsp;&nbsp;Descending
+                                        </div>
+                                    </div>
+                                    <select name="sortFieldID" class="form-control" asp-items="ViewBag.sortFieldID"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Search Meeting Title:</label>
+                            @Html.TextBox("SearchName", null, new { @class = "form-control"})
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Select Meeting by Committee:</label>
+                            @Html.DropDownList("Committee", null, "All Committees", htmlAttributes: new { @class = "form-control" })
+                        </div>
+                        <div class="form-group col-md-4 dateboxdiv">
+                            <label class="control-label" style="margin-bottom: 8px;">Select Meeting by Date:</label>
+                            <br />
+                            <div class="dateboxes">
+                                From
+                            </div>
+                            <div class="dateboxes">
+                                @Html.TextBox("SearchStartDate",null,new { @class = "form-control" , type = "date" })
+                            </div>
+                            <div class="dateboxes">
+                                To
+                            </div>
+                            <div class="dateboxes">
+                                @Html.TextBox("SearchEndDate",null,new { @class = "form-control", type = "date" })
+                            </div>
+                        </div>
+                        <div class="form-group align-self-end dateboxdiv">
+                            <div class="dateboxes">
+                                <input type="submit" name="actionButton" value="Filter" title="Filter records on current criteria" class="btn btn-outline-primary" />
+                            </div>
+                            <div class="dateboxes">
+                                <a asp-action="Index" title="Clear Filters" class="btn btn-outline-dark clearbtn">Clear</a>
+                            </div>
+                        </div>
+                        <p><b>NOTE: To sort records just click on field (table header) by which you want to sort the records</b></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <table class="table tablemargin">
+            <thead>
+                <tr>
+                    <th>
+                        <button title="Click to sort records by Meeting Title" name="actionButton" value="Meeting Title" class="sortfield">Title</button>
+                    </th>
+                    <th>
+                        <button title="Click to sort records by Committee Title" name="actionButton" value="Committee Title" class="sortfield">Committee</button>
+                    </th>
+                    <th>
+                        <button title="Click to sort records by Meeting Date" name="actionButton" value="Meeting Date" class="sortfield">Date</button>
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.MeetingMinutes)
+                    </th>
+                    <th>
+                        Operations
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @{
+                                string name = item.MeetingTitle;
+                                if (name.Length > 20)
+                                {
+                                    string shortname = "";
+                                    for (int i = 0; i < 20; i++)
+                                    {
+                                        shortname += name[i];
+                                    }
+                                    <a class="" role="button" data-bs-toggle="collapse" href="#collapseHistory@(item.MeetingID)"
+                               aria-expanded="false" aria-controls="collapseHistory@(item.MeetingID)">
+                                        @shortname <span class="badge bg-info">...</span>
+                                    </a>
+                                    <div class="collapse" id="collapseHistory@(item.MeetingID)">
+                                        @Html.Raw(name)
+                                    </div>
+                                }
+                                else
+                                {
+                                    @name
+                                }
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CommitteeMeetings.FirstOrDefault().Committee.CommitteeName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MeetingDate)
+                        </td>
+                        <td>
+                            @{
+                                int fileCount = item.MeetingMinutes.Count;
+                                if (fileCount > 0)
+                                {
+                                    var firstFile = item.MeetingMinutes.FirstOrDefault();
+                                    if (fileCount > 1)
+                                    {
+                                        <a class="" role="button" data-bs-toggle="collapse" href="#collapseDocs@(item.MeetingID)" aria-expanded="false" aria-controls="collapseDocs@(item.MeetingID)">
+                                            <span class="badge bg-info">@fileCount</span> Minutes...
+                                        </a>
+                                        <div class="collapse" id="collapseDocs@(item.MeetingID)">
+                                            @{
+                                                foreach (var m in item.MeetingMinutes)
+                                                {
+                                                    <a asp-action="Download" asp-route-id="@m.ID">@m.FileName</a> <br />
+                                                }
+                                            }
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <a asp-action="Download" asp-route-id="@firstFile.ID">@firstFile.FileName</a>
+                                    }
+                                }
+                            }
+                        </td>
+                        <td>
+                            @if (User.IsInRole("Top Admin"))
+                            {
+                                <a asp-action="Edit" asp-route-id="@item.MeetingID">Edit</a> @:|
+                                <a asp-action="Details" asp-route-id="@item.MeetingID">Details</a> @:|
+                                <a asp-action="Delete" asp-route-id="@item.MeetingID">Delete</a>
+                            }
+                            else if (User.IsInRole("Admin") || User.IsInRole("User"))
+                            {
+                                <a asp-action="Details" asp-route-id="@item.MeetingID">Details</a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <partial name="_PagingNavBar" />
+    </form>
+</div>

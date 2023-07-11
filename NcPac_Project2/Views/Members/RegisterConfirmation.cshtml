@@ -1,0 +1,48 @@
+﻿@model NcPac_Project2.Models.Member
+
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+@*Confirmation page after Register button*@
+
+@*Jumbotron Program Advisory Committees*@
+<div class="jumbotron jumbotron-fluid" style="background-color:#0077be; color:#fff;">
+    <div class="container">
+        <h1 class="display-4">Program Advisory Committees</h1>
+        <p class="lead">PAC Membership Form</p>
+    </div>
+</div>
+
+
+@*NC Logo and Title Form*@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-1">
+            @*Niagara College Image*@
+            <img src="~/images/NC-Logo-2022-Pos.png" alt="Niagara College Logo" style="max-height: 80px; max-width: 96px" class="img-fluid rounded" />
+        </div>
+        <div class="col-sm-11" style="text-align:right">
+            Biographical Data For Potential Membership On Program Advisory Commitees
+        </div>
+</div>
+</div>
+<div class="container">
+@*Hero*@
+    <div class="p-4 rounded-3" style="background-color: #EDF8FF; margin-top:30px; color:black">
+        <h2 style="color:#0077be">New Intake Form</h2>
+    <p>
+        Thank you! Your form has been registered in our system, you can now use this application. If you have any question or concern, please <a href="mailto:ncpacdemo@outlook.com">email us.</a>
+    </p>
+    <p>
+        Return <a asp-area="" asp-controller="Home" asp-action="Index">Home.</a>
+    </p>
+    <hr class="my-4" />
+    <p>
+        To learn more about Niagara College Program Advisory Committeess, please visit our policy information <a href="https://www.niagaracollege.ca/policies/wp-content/uploads/sites/123/2019/10/Program-Advisory-Committees-Policy.pdf" alt="Download Niagara College Program Advisory Committeess policy">here.</a>
+    </p>
+</div>
+@*Hero*@
+</div>
+

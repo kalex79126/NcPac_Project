@@ -1,0 +1,433 @@
+﻿@model NcPac_Project2.Models.Member
+
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+@{
+    Layout = "~/Views/Shared/_LayoutRegisterPage.cshtml";
+}
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+
+@*Jumbotron Program Advisory Committees*@
+<div class="jumbotron jumbotron-fluid" style="background-color:#0077be; color:#fff;">
+    <div class="container">
+        <h1 class="display-4">Register</h1>
+        <p class="lead">Membership Form</p>
+    </div>
+</div>
+
+@*NC Logo and Title Form*@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-1">
+            @*Niagara College Image*@
+            <img src="~/images/NC-Logo-2022-Pos.png" alt="Niagara College Logo" style="max-height: 80px; max-width: 96px" class="img-fluid rounded" />
+        </div>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="col-sm-11" style="text-align:right">
+            Biographical Data For Potential Membership On Program Advisory Commitees
+        </div>
+        </div>
+    </div>
+
+
+    @*Btn to populate fields*@
+    <div class="container" style="display: grid; justify-content: flex-end">
+        <div class="row-cols-1">
+            <div style="color:darkred">For demonstration purposes only, not included in the final app</div>
+
+        </div>
+        <div class="row row-cols-2">
+            <div class="col-auto">
+                <span data-bs-toggle="tooltip" data-bs-placement="right" title="This example will populate all the fields">
+                    <button type="button" onclick="PopulateFieldBtn1()">Example1</button>
+                    <i class="bi bi-question-circle-fill" style="font-size: 1.5rem;"></i>
+                </span>
+            </div>
+
+            <div class="col">
+                <span data-bs-toggle="tooltip" data-bs-placement="right" title="This example will populate all the fields">
+                    <button type="button" onclick="PopulateFieldBtn2()">Example2</button>
+                    <i class="bi bi-question-circle-fill" style="font-size: 1.5rem;"></i>
+                </span>
+            </div>
+
+        </div>
+        <div class="row row-cols-2">
+            <div class="col-auto">
+                <span data-bs-toggle="tooltip" data-bs-placement="right" title="This example will populate all the fields, but some with errors.">
+                    <button type="button" onclick="PopulateFieldBtn3()">Example3</button>
+                    <i class="bi bi-question-circle-fill" style="font-size: 1.5rem;"></i>
+                </span>
+            </div>
+
+            <div class="col-auto">
+                <span data-bs-toggle="tooltip" data-bs-placement="right" title="This will clear all the fields of the form, including selections from lists and radio buttons">
+                    <button type="button" onclick="ClearFields()">ClearFields</button>
+                    <i class="bi bi-question-circle-fill" style="font-size: 1.5rem;"></i>
+                </span>
+            </div>
+
+        </div>
+    </div>
+
+
+    @*Register Form*@
+    <div class="row">
+        <div class="col-md-5" style="width:100%">
+            <form asp-action="Register">
+                
+
+
+                @*Stepper Registrarion*@
+                @*Steps*@
+                <div class="container">
+                    <div class="accordion" id="accordionExample">
+                        <div class="steps">
+                            <progress id="progress" value=0 max=100></progress>
+                            <div class="step-item">
+                                <button class="step-button text-center" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    1
+                                </button>
+                                <div class="step-title">
+                                    Personal Information
+                                </div>
+                            </div>
+                            <div class="step-item">
+                                <button class="step-button text-center collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    2
+                                </button>
+                                <div class="step-title">
+                                    Employment Information
+                                </div>
+                            </div>
+                            <div class="step-item">
+                                <button class="step-button text-center collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    3
+                                </button>
+                                <div class="step-title">
+                                    About Personal Information
+                                </div>
+                            </div>
+                        </div>
+
+
+                        @*Form*@
+                        @*Step 1*@
+                        @*Personal Information*@
+                        <div class="card">
+                            <div id="headingOne">
+                            </div>
+                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                                 data-bs-parent="#accordionExample">
+                                <div class="card-body">
+
+                                    <div aria-level="2" role="heading">
+                                        <span style="color:#1D7FC9;font-size:21px">
+                                            Thank you for your interest in our Program Advisory Committee! We'd like to get to know you a little better.
+
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <span style="color:#333;font-size:15px">
+                                            There are 2 sections to complete, and it should take about 5 minutes.
+
+                                        </span>
+                                    <span class="requiretop"><b>NOTE:</b> Fields marked by "*" are required fields</span>
+                                   
+                                    </div>
+                                    <br />
+                                    @* TODO: Choose a Committe and Choose Salutation, not implemented in Member model?*@
+
+                                @{
+                                    //Get the username First and Last, set var and called them in the input fields
+                                    var userName = HttpContextAccessor.HttpContext.Request.Cookies["userName"] ?? UserManager.GetUserName(User);
+                                    var names = userName.Split(' ');
+                                    var firstName = names[0];
+                                    var lastName = names[1];
+                                }
+
+                                    @*First Name*@
+                                
+                                    <div class="form-floating">
+                                    <input asp-for="MemberFirstName" class="form-control" id="txtFirstName" value="@firstName.ToString()" readonly/>
+                                    <label asp-for="MemberFirstName">First Name - E.g. John Doe<span class="requirefield">*</span></label>
+                                        <span asp-validation-for="MemberFirstName" class="text-danger"></span>
+                                    </div>
+                                    @*Last Name*@
+                                    <div class="form-floating">
+                                    <input asp-for="MemberLastName" class="form-control" id="txtLastName" value="@lastName.ToString()" readonly/>
+                                    <label asp-for="MemberLastName">Last Name - E.g. Doe<span class="requirefield">*</span></label>
+                                        <span asp-validation-for="MemberLastName" class="text-danger"></span>
+                                    </div>
+                                    @*Address*@
+                                    <div class="form-floating">
+                                        <input asp-for="MemberAddress" class="form-control" id="txtAddress" />
+                                    <label asp-for="MemberAddress">Street Address  - E.g. 100 Niagara College Boulevard<span class="requirefield">*</span></label>
+                                        <span asp-validation-for="MemberAddress" class="text-danger"></span>
+                                    </div>
+                                    @*City*@
+                                    <div class="form-floating">
+                                        <input asp-for="MemberCity" class="form-control" id="txtCity" />
+                                    <label asp-for="MemberCity">City - E.g. Welland<span class="requirefield">*</span></label>
+                                        <span asp-validation-for="MemberCity" class="text-danger"></span>
+                                    </div>
+
+                                    @*<div class="form-floating">
+                                    <label asp-for="MemberProvince" class="control-label">Test</label><br />
+                                    @Html.DropDownListFor(p => p.MemberProvince,
+                                    new SelectList(Enum.GetValues(typeof(Provinces))),
+                                    "Select Province",new{@id="dwProvince"})
+                                    </div>*@
+
+                                    @*Member Province*@
+                                <div class="form-group">
+                                    <label asp-for="MemberProvince" class="control-label">Province:</label><span class="requirefield">*</span>
+                                        <select asp-for="MemberProvince" id="dwProvince" class="form-select">
+                                        <option value="">Choose a Province</option>
+                                            <option value="AB">Alberta</option>
+                                            <option value="BC">British Columbia</option>
+                                            <option value="MB">Manitoba</option>
+                                            <option value="NB">New Brunswick</option>
+                                            <option value="NL">Newfoundland and Labrador</option>
+                                            <option value="NT">Northwest Territories</option>
+                                            <option value="NS">Nova Scotia</option>
+                                            <option value="NU">Nunavut</option>
+                                            <option value="ON">Ontario</option>
+                                            <option value="QC">Quebec</option>
+                                            <option value="PE">Prince Edward Island</option>
+                                            <option value="SK">Saskatchewan</option>
+                                            <option value="YT">Yukon</option>
+                                    </select>
+                                        <span asp-validation-for="MemberProvince" class="text-danger"></span>
+                                    </div>
+
+
+                                    @*Postal Code*@
+                                    <div class="form-floating">
+                                        <input asp-for="MemberPostalCode" class="form-control" id="txtPostalCode" />
+                                    <label asp-for="MemberPostalCode">Postal Code - E.g. L3C 7L3<span class="requirefield">*</span></label>
+                                        <span asp-validation-for="MemberPostalCode" class="text-danger"></span>
+                                    </div>
+                                    @*Phone*@
+                                    <div class="form-floating">
+                                        <input asp-for="MemberPhoneNo" class="form-control" id="txtTelephoneNumber" />
+                                    <label asp-for="MemberPhoneNo">Telephone Number - E.g. 1234567890<span class="requirefield">*</span></label>
+                                        <span asp-validation-for="MemberPhoneNo" class="text-danger"></span>
+                                    </div>
+                                    @*Email*@
+                                    <div class="form-floating">
+                                        <input asp-for="MemberEmail" class="form-control" id="txtEmail" value="@User.Identity.Name.ToString()" readonly/>
+                                    <label asp-for="MemberEmail">Email - E.g. johndoe@email.com<span class="requirefield">*</span></label>
+                                        <span asp-validation-for="MemberEmail" class="text-danger"></span>
+                                    </div>
+
+                                    @*TODO: Password
+                                    Confirm Password*@
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="card">
+                            <div id="headingTwo">
+                            </div>
+                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                <div class="card-body">
+                                    <div>
+                                        <span style="color:#333;font-size:15px">
+                                            The next section is about your work contact information and education.
+
+                                        </span>
+                                    <span class="requiretop"><b>NOTE:</b> Fields marked by "*" are required fields</span>
+                                    
+                                    </div>
+                                    <br />
+
+                                    @*Job title*@
+                                
+                                    <div class="form-floating">
+                                        <input asp-for="MemberPosition" class="form-control" id="txtPositionTitle" />
+                                    <label asp-for="MemberPosition">Position Title - E.g. Computer Programming<span class="requirefield">*</span></label>
+                                        <span asp-validation-for="MemberPosition" class="text-danger"></span>
+                                    </div>
+                                    @*Company Name*@
+                                    <div class="form-floating">
+                                        <input asp-for="MemberCompany" class="form-control" id="txtCompanyName" />
+                                    <label asp-for="MemberCompany">Company Name - E.g. My Company<span class="requirefield">*</span></label>
+                                        <span asp-validation-for="MemberCompany" class="text-danger"></span>
+                                    </div>
+                                    @*Company Address*@
+                                    <div class="form-floating">
+                                        <input asp-for="MemberEmAddress" class="form-control" id="txtCompanyAddress" />
+                                    <label asp-for="MemberEmAddress">Company Street Address - E.g. 100 Niagara College Boulevard<span class="requirefield">*</span></label>
+                                        <span asp-validation-for="MemberEmAddress" class="text-danger"></span>
+                                    </div>
+                                    @*Company City*@
+                                    <div class="form-floating">
+                                        <input asp-for="MemberEmCity" class="form-control" id="txtCompanyCity" />
+                                        <label asp-for="MemberEmCity">Company City - E.g. Welland</label>
+                                        <span asp-validation-for="MemberEmCity" class="text-danger"></span>
+                                    </div>
+
+                                    @*Company Province*@
+                                    <div class="form-floating">
+                                        <select asp-for="MemberProvince" id="dwCompanyProvince" class="form-select">
+                                            <option value="">Choose a Province</option>
+                                            <option value="AB">Alberta</option>
+                                            <option value="BC">British Columbia</option>
+                                            <option value="MB">Manitoba</option>
+                                            <option value="NB">New Brunswick</option>
+                                            <option value="NL">Newfoundland and Labrador</option>
+                                            <option value="NT">Northwest Territories</option>
+                                            <option value="NS">Nova Scotia</option>
+                                            <option value="NU">Nunavut</option>
+                                            <option value="ON">Ontario</option>
+                                            <option value="QC">Quebec</option>
+                                            <option value="PE">Prince Edward Island</option>
+                                            <option value="SK">Saskatchewan</option>
+                                            <option value="YT">Yukon</option>
+                                        </select>
+                                        <span asp-validation-for="MemberProvince" class="text-danger"></span>
+                                    </div>
+
+
+                                    @*Company Postal Code*@
+                                    <div class="form-floating">
+                                        <input asp-for="MemberEmPostalCode" class="form-control" id="txtCompanyPostalCode" />
+                                    <label asp-for="MemberEmPostalCode">Company Postal Code - E.g. L3C 7L3<span class="requirefield">*</span></label>
+
+                                        <span asp-validation-for="MemberEmPostalCode" class="text-danger"></span>
+                                    </div>
+                                    @*Company Phone*@
+                                    <div class="form-floating">
+                                        <input asp-for="MemberEmPhoneNo" class="form-control" id="txtCompanyTelephoneNumber" />
+                                        <label asp-for="MemberEmPhoneNo">Company Telephone Number - E.g. 1234567890</label>
+
+                                        <span asp-validation-for="MemberEmPhoneNo" class="text-danger"></span>
+                                    </div>
+                                    @*Company member email*@
+                                    <div class="form-floating">
+                                        <input asp-for="MemberEmEmail" class="form-control" id="txtCompanyEmail" />
+                                    <label asp-for="MemberEmEmail">Company Email - E.g. mycompanyemail@company.com<span class="requirefield">*</span></label>
+
+                                        <span asp-validation-for="MemberEmEmail" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                    <label asp-for="MemberIsMailingHome" class="control-label">Preferred Mailing Address:</label><span class="requirefield">*</span><br />
+                                        @Html.RadioButtonFor(model => model.MemberIsMailingHome, "Personal",new{@id="rdPersonal"})
+                                        Personal &nbsp;
+                                        @Html.RadioButtonFor(model => model.MemberIsMailingHome, "Work",new{@id="rdWork"})
+                                        Work
+
+                                    </div>
+
+                                    <div class="form-group">
+                                    <label asp-for="MemberEducation" class="control-label">Educational Summary: (Please provide relevant educational and professional credentials)<span class="requirefield">*</span></label>
+                                        <textarea asp-for="MemberEducation" class="form-control" id="txtEducationSummary" rows="3"></textarea>
+                                        <span asp-validation-for="MemberEducation" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group" id="radBtnTest">
+                                    <label asp-for="MemberIsNcGrad" class="control-label">Are You a Niagara College Graduate?:</label><span class="requirefield">*</span><br />
+                                        @Html.RadioButtonFor(model => model.MemberIsNcGrad, "Yes",new{@id="rdYes"})
+                                        Yes &nbsp;
+                                        @Html.RadioButtonFor(model => model.MemberIsNcGrad, "No",new{@id="rdNo"})
+                                        No
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label asp-for="MemberParticipation" class="control-label">Occupational Summary:  (Briefly summarize specialized background knowledge or positions held.)</label>
+                                        <textarea asp-for="MemberParticipation" class="form-control" id="txtOccupationalSumary" rows="3"></textarea>
+                                        <span asp-validation-for="MemberParticipation" class="text-danger"></span>
+                                    </div>
+
+                                    @*Register at, set default date to today and hidden field*@
+                                    <div class="form-group" hidden="hidden">
+                                    <label asp-for="MemberRegisteredAt" class="control-label"></label><span class="requirefield">*</span>
+                                        <input type="datetime" asp-for="MemberRegisteredAt" class="form-control" value="@DateTime.Today" />
+                                        <span asp-validation-for="MemberRegisteredAt" class="text-danger"></span>
+                                    </div>
+
+                                    @*<div class="form-group">
+                                    <label asp-for="MemberLastLogin" class="control-label"></label>
+                                    <input asp-for="MemberLastLogin" class="form-control" />
+                                    <span asp-validation-for="MemberLastLogin" class="text-danger"></span>
+                                    </div>*@
+
+                                    @*Renewal at, set default date to today and hidden field*@
+                                    <div class="form-group" hidden="hidden">
+                                        <label asp-for="MemberRenewalDate" class="control-label"></label>
+                                        <input type="datetime" asp-for="MemberRenewalDate" class="form-control" value="@DateTime.Now.AddYears(2)" />
+                                        <span asp-validation-for="MemberRenewalDate" class="text-danger"></span>
+                                    </div>
+
+
+                                    @*Active *@
+                                    @*<div class="form-group" hidden="hidden">
+                                        <label asp-for="MemberIsActive" class="control-label"></label><br />
+                                        <input type="radio" asp-for="MemberIsActive" checked="checked" value="Active" />Active
+                                    </div>*@
+                                </div>
+                            </div>
+
+                            @*Step 3
+                            Privacy Information Use*@
+                            <div class="card">
+                                <div id="headingThree">
+                                </div>
+                                <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
+                                     data-bs-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <div>
+                                            <span style="color:#1D7FC9;font-size:21px">
+                                                That's it! You've reached the end of the form.
+                                            </span>
+
+                                        </div>
+                                        <br />
+                                        <p>
+                                            Personal information contained on this form is collected under the legal authority of the Ministry of Colleges and Universities
+                                            Act, R.S.O. 1980, Chapter 272, s.s: R.R.O. 1980, Regulation 640.  This information will be used by the College to:  (a)
+                                            determine eligibility for membership on Advisory Committee and (b) if appointed, for administrative functions related to the position.
+                                            Questions about this collection should be directed to the Executive Secretary to the Board of Governors, Niagara College, P.O. Box 1005,
+                                            Welland, Ontario, L3B 5S2,Telephone # (905) 735-2211.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                        <button type="submit" class="w-100 btn btn-lg btn-primary" id="btnRegister">Register</button>
+                        </div>
+                        </div>
+                        </div>
+            </form>
+        </div>
+
+
+    </div>
+
+
+
+    @section Scripts {
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> @*Sweet Alert reference*@
+        <partial name="_ValidationScriptsPartial" />
+        <script src="~/js/site.js"></script>
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+
+    }

@@ -1,0 +1,51 @@
+﻿@model NcPac_Project2.Models.MeetingDocument
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="jumbotron jumbotron-fluid margin-bottom" style="background-color:#0077be; color:#fff;">
+    <div class="container">
+        <h1 class="display-4">Document Details</h1>
+        <p class="lead">Check entire information</p>
+    </div>
+</div>
+
+<div class="container">
+    <div>
+        <fieldset>
+            <legend>Document Details</legend>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Meeting)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Meeting.MeetingTitle)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.FileName)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.FileName)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.MimeType)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.MimeType)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+            </dl>
+        </fieldset>
+    </div>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model?.ID">Edit</a> |
+        <a href='@ViewData["returnURL"]'>Back to List</a>
+    </div>
+</div>

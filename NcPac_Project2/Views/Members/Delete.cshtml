@@ -1,0 +1,166 @@
+﻿@model NcPac_Project2.Models.Member
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<div class="jumbotron jumbotron-fluid margin-bottom" style="background-color:#0077be; color:#fff;">
+    <div class="container">
+        <h1 class="display-4">Delete Member</h1>
+        <p class="lead">Are you sure you want to delete this member?</p>
+    </div>
+</div>
+
+<div class="container">
+    <div>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.MemberFirstName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.MemberFirstName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.MemberLastName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.MemberLastName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.MemberAddress)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.MemberAddress)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.MemberCity)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.MemberCity)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.MemberProvince)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.MemberProvince)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.MemberPostalCode)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.MemberPostalCode)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.MemberPhoneNo)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.MemberPhoneNo)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.MemberEmail)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.MemberEmail)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.MemberPosition)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.MemberPosition)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.MemberCompany)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.MemberCompany)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.MemberEmAddress)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.MemberEmAddress)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.MemberEmCity)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.MemberEmCity)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.MemberEmProvince)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.MemberEmProvince)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.MemberEmPostalCode)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.MemberEmPostalCode)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.MemberEmPhoneNo)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.MemberEmPhoneNo)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.MemberEmEmail)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.MemberEmEmail)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.MemberIsMailingHome)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.MemberIsMailingHome)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.MemberIsNcGrad)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.MemberIsNcGrad)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.MemberEducation)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.MemberEducation)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.MemberParticipation)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.MemberParticipation)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.MemberRegisteredAt)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.MemberRegisteredAt)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.MemberLastLogin)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.MemberLastLogin)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.MemberRenewalDate)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.MemberRenewalDate)
+            </dd>
+
+        </dl>
+
+        <form asp-action="Delete" class="margin-top">
+            <input type="hidden" asp-for="MemberID" />
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            <a href='@ViewData["returnURL"]'>Back to List</a>
+        </form>
+    </div>
+</div>
+

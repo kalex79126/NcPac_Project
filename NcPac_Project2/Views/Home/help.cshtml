@@ -1,0 +1,132 @@
+﻿@{
+    ViewData["Title"] = "Welcome to Help Center";
+}
+<link rel="stylesheet" href="~/maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+<script type="text/javascript" src="/cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+<script type="text/javascript" src="/maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<div class="jumbotron jumbotron-fluid" style="background-color:#0077be; color:#fff;">
+    <div class="container">
+        <h1 class="display-4">Help Center</h1>
+          <p class="lead">Where questions meet answers</p>
+       @* <div class="helpheader">
+            <h4>We're here to help.</h4>
+            <form class="search-form" action="#">
+                <input type="text" placeholder="How can we help?">
+                <button type="submit">Search</button>
+            </form>
+        </div>*@
+    </div>
+</div>
+
+<div class="container">
+   
+    <div class="shortcuts">
+        <div class="shortcuts_header">NPAC shortcuts</div>
+        <div class="shortcuts_list-wrapper">
+            <ul class="shortcuts_list">
+                <li class="shortcuts_list-item"><a href="~/Identity/Account/Manage">Change or add your phone number. </a></li>
+                <li class="shortcuts_list-item"><a href="~/Identity/Account/Manage/ChangePassword">Reset your password.</a></li>
+                @*<li class="shortcuts_list-item"><a href="~/Identity/Account/Manage/Email">Change Email.</a></li>
+                <li class="shortcuts_list-item"><a href="#">Reset your password.</a></li>*@
+            </ul>
+        </div>
+    </div>
+    <div class="grid-container_header">Recommended Topics</div>
+    <div class="grid-container">
+
+        <div class="grid-item">
+            <img src="~/images/profile-L.png" />
+            <p><span><a href="#profile">Your Profile</a></span></p>
+        </div>
+
+        <div class="grid-item">
+            <img id="#meeting_info" src="~/images/committee-L.png" />
+            <p><span><a href="#meeting_info">Meetings</a></span></p>
+        </div>
+
+        <div class="grid-item">
+            <img src="~/images/tasks-L.png" />
+            <p><span><a href="#ActionItems">Action Items</a></span></p>
+        </div>
+
+       @* <div class="grid-item">
+            <img src="~/images/contactUs-L.png" />
+            <p><span><a href="#">Contact Us</a></span></p>
+        </div>*@
+    </div>
+</div>
+
+<div class="container">
+   
+    <div class="common-questions">
+        <div class="questions_title" id="profile">Account Settings</div>
+
+        <section class="answer_question">
+        <div class="common-questions_header"> How to log in to my account</div>
+       
+            <ol>
+                <li>Enter the email address and password associated with your membership and then select Log in with email.</li>
+                <li>If you are having trouble logging in, follow the prompts on the <strong>Forgot your password?</strong> link</li>
+            </ol>
+        </section>
+
+        <section class="answer_question">
+        <div class="common-questions_header"> How to log out of my account</div>
+        
+            <ol>
+                <li>To log out of the NCPAC site, select your profile icon from the top right corner of the screen.</li>
+                <li>Select <strong>Logout</strong> from the bottom of the menu.</li>
+            </ol>
+        </section>
+
+        @*<section class="answer_question">
+        <div class="common-questions_header"> Update my email address</div>
+        
+            <ul>
+                <li>After logging in to your account .</li>
+                <li>Select <strong>your name </strong> from the profile icon on the top left of the screen.</li>
+            </ul>
+        </section>*@
+
+       @* <section class="answer_question">
+        <div class="common-questions_header"> Update your email address</div>
+        
+            <ul>
+                <li>After logging in to your account .</li>
+                <li>Select LOG out from the bottom of the menu.</li>
+            </ul>
+        </section>*@
+
+        <div class="questions_title" id="meeting_info">Meetings</div>
+        <section class="answer_question">
+        <div class="common-questions_header" id="meeting_info"> View Meetings and Minutes</div>
+       
+            <p>You can see all of the meetings that you have attended for each committee when you are logged into your account.</p>
+            <ol>
+                <li>Clicking on the <strong>Meetings</strong> button</li>
+                <li>Select on <strong>Details</strong> to access the minutes, review notes and action items.</li>
+            </ol> 
+        </section>
+        
+        <div class="common-questions_header" id="meeting_info"> Download Meeting Minutes</div>
+        <section class="answer_question">
+            <p>You can download meeting minutes from the Meetings page</p>
+                <ol>
+                    <li>Click on the <strong>Details</strong> link.</li>
+                    <li>On the<strong> Meeting Details</strong> page, select the underlined minutes to download them for your review.</li>
+                </ol>
+        </section>
+
+        <div class="questions_title" id="ActionItems"> Action Items</div>
+        <section class="answer_question">
+        <div class="common-questions_header" id="ActionItems"> View Action Items</div>
+        
+            <p>All of the Action Items assigned to each member can be viewed and managed on the Action Items page. Here one can check of whether the Item has been completed</p>
+            <ol>
+                <li>Under the Actions column select <strong>Edit Details</strong> to add notes to the Action Item</li>
+                <li>Selecting <strong>Full Details</strong> allows you to check all of the Action Items Details</li>
+            </ol>
+        </section>
+    </div>
+</div>

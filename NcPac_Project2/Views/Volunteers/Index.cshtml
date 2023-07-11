@@ -1,0 +1,92 @@
+﻿@model IEnumerable<NcPac_Project2.ViewModels.VolunteerAdminVM>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="jumbotron jumbotron-fluid margin-bottom" style="background-color:#0077be; color:#fff;">
+    <div class="container">
+        <h1 class="display-4">Accounts</h1>
+        <p class="lead">Manage Accounts</p>
+    </div>
+</div>
+
+@if (TempData["Message"] != null)
+{
+    <div class="container">
+        <div class="alert alert-success">
+            <strong>Success !</strong> @TempData["Message"]
+        </div>
+    </div>
+}
+
+<div class="container">
+    <div class="btnboxdiv">
+        <div class="btnboxes">
+            @if (User.IsInRole("Top Admin"))
+            {
+                <input type="button" value="Create New Account" title="Click to open a form to add new Account" class="floatbuttonright" onclick="location.href='@Url.Action("Create", "Volunteers")'" />
+
+            }
+        </div>
+    </div>
+    <table class="table tablemargin">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.FullName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Phone)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserRoles)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Active)
+                </th>
+                <th>
+                    Operations
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FullName)<br />
+                        Email: @Html.DisplayFor(modelItem=> item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PhoneNumber)
+                    </td>
+                    <td>
+                        @{
+                            foreach (var r in item.UserRoles)
+                            {
+                                @:  @r <br />
+                            }
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Active)
+                    </td>
+
+                    <td>
+                        @if(User.Identity.Name.ToLower() != item.Email.ToLower()){
+                            <a asp-action="Edit" asp-route-id="@item.ID">Edit</a>
+                            @if (item.NumberOfPushSubscriptions > 0)
+                            {
+                                @:| @{
+                                    <a asp-controller="WebPush" asp-action="Send" asp-route-id="@item.ID">Send Notification</a>
+                                }
+                            }
+                        }    
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

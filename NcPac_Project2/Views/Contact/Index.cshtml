@@ -1,0 +1,50 @@
+﻿@model ContactFormModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="jumbotron jumbotron-fluid margin-bottom" style="background-color:#0077be; color:#fff;">
+    <div class="container">
+        <h1 class="display-4">Contact Us</h1>
+    </div>
+</div>
+
+<div class="container">
+
+    @if (ViewBag.Message != null)
+    {
+        <div class="alert alert-success" role="alert">
+            @ViewBag.Message
+        </div>
+    }
+
+    <form method="post" asp-action="SubmitContactForm">
+        <fieldset>
+            <legend>Contact Form</legend>
+            <hr />
+            <span class="requiretop"><b>NOTE:</b> Fields marked by "*" are required fields</span>
+            <br />
+            <div class="form-group">
+                <label asp-for="Name">Name</label><span class="requirefield">*</span>
+                <input asp-for="Name" placeholder="Name" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email">Email</label><span class="requirefield">*</span>
+                <input asp-for="Email" type="email" placeholder="Name@email.com" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label asp-for="Subject">Subject</label><span class="requirefield">*</span>
+                <input asp-for="Subject" class="form-control" placeholder="Subject" required>
+            </div>
+            <div class="form-group">
+                <label asp-for="Message">Message</label><span class="requirefield">*</span>
+                <textarea asp-for="Message" class="form-control" rows="5" required></textarea>
+            </div>
+        </fieldset>
+        <button type="submit" class="btn btn-primary">Send</button>
+    </form>
+    <div class="lower-link">
+        <a href="~/">Back to Home </a>
+    </div>
+</div>

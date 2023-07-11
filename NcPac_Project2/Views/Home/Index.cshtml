@@ -1,0 +1,415 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<IdentityUser> signInManager
+@inject UserManager<IdentityUser> UserManager
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@model dynamic
+@using Task = NcPac_Project2.Models.ActionItem;
+
+@{
+    ViewData["Title"] = "Home";
+}
+
+<!-- #region Get User's Name -->
+<div>
+    @{
+        //Get the username First and Last, set var and called them in the input fields
+        var userName = HttpContextAccessor.HttpContext.Request.Cookies["userName"] ?? UserManager.GetUserName(User);
+        var names = userName.Split(' ');
+        var firstName = names[0];
+        //var lastName = names[1];
+    }
+</div>
+<!-- #endregion -->
+
+<!-- #region Jumbotron -->
+<div>
+    <div class="jumbotron jumbotron-fluid" style="background-color:#0077be; color:#fff;">
+        <div class="container">
+            <h1 class="display-4">Program Advisory Committees</h1>
+            <p class="lead">Home</p>
+        </div>
+    </div>
+    
+</div>
+<!-- #endregion -->
+
+<!-- #region Main code (Subregions inside)-->
+<div>
+    <form asp-action="Index" method="get">
+        <div class="container">
+            <div class="col-sm-12">
+
+                <!-- #region Message -->
+                <div>
+                    <h3 style="color:#003aab">
+                        Welcome back!
+                        @firstName.ToString()
+                    </h3>
+                    
+                </div>
+                <!-- #endregion -->
+                
+                <!-- #region  Overalls figures blocks-->
+                <div style="border:double">
+                    <div class="row">
+                        @if ((signInManager.IsSignedIn(User) && User.IsInRole("Top Admin")) || (signInManager.IsSignedIn(User) && User.IsInRole("Admin")))
+                        {
+                            <div class="col-sm-3" style="border-right-style: ridge">
+                                <div class="well">
+                                    <h4 style="color:#555555">Members</h4>
+                                    <p>@ViewBag.NewMembers this month | @ViewBag.MembersNoEnrolls no committee assigned</p>
+                                </div>
+                            </div>
+                            <div class="col-sm-3" style="border-right-style: ridge">
+                                <div class="well">
+                                    <h4 style="color:#555555">Renewals</h4>
+                                    <p>@ViewBag.MembersRenewal next month | @ViewBag.MembersRenewal3 next three months </p>
+                                </div>
+                            </div>
+
+                        }
+                        @if ((signInManager.IsSignedIn(User) && User.IsInRole("Top Admin")) || (signInManager.IsSignedIn(User) && User.IsInRole("Admin")))
+                        {
+                            <div class="col-sm-3" style="border-right-style: ridge">
+                                <div class="well">
+                                    <h4 style="color:#555555">Meetings</h4>
+                                    <p>@ViewBag.NewMeetings this month | @ViewBag.PastMeetings year to date</p>
+                                </div>
+                            </div>
+                        }
+                        else if ((signInManager.IsSignedIn(User) && User.IsInRole("User")))
+                        {
+                            <div class="col-sm-3" style="border-right-style: ridge">
+                                <div class="well">
+                                    <h4 style="color:#555555">Meetings</h4>
+                                    <p>@ViewBag.NewMemMeetings this month | @ViewBag.PastMemMeetings year to date</p>
+                                </div>
+                            </div>
+                        }
+
+                        @if ((signInManager.IsSignedIn(User) && User.IsInRole("Top Admin")) || (signInManager.IsSignedIn(User) && User.IsInRole("Admin")))
+                        {
+                            <div class="col-sm-3">
+                                <div class="well">
+                                    <h4 style="color:#555555">Action Items</h4>
+                                    <p>@ViewBag.ActionItems this month | @ViewBag.TasksCompletedPercent % completed this month </p>
+                                </div>
+                            </div>
+                        }
+                        else if ((signInManager.IsSignedIn(User) && User.IsInRole("User")))
+                        {
+                            <div class="col-sm-3" >
+                                <div class="well">
+                                    <h4 style="color:#555555">Action Items</h4>
+                                    <p>@ViewBag.MemTotalTasksCount this month | @ViewBag.MemPercentageCompleted % completed this month </p>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                </br>
+                <!-- #endregion -->
+                
+                <!-- #region  Upcoming Titles-->
+                <div>
+                    <h3 style="color:#003aab">
+                        New and Upcoming Events
+                        <hr>
+                    </h3>
+                    
+                </div>
+                
+                <!-- #endregion -->
+                
+                <!-- #region  Members Table-->
+                <div>
+                    @if ((signInManager.IsSignedIn(User) && User.IsInRole("Top Admin")) || (signInManager.IsSignedIn(User) && User.IsInRole("Admin")))
+                    {
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <span data-bs-toggle="tooltip" data-bs-placement="right" title="This table shows the list of new members for the current month, it doesn't included past members">
+                                    <div style="display:inline-block"><p>List of new members added this month</p></div>
+                                    <i class="bi bi-question-circle-fill"></i>
+                                </span>                              
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Name
+                                            </th>
+                                            <th>
+                                                Registerd At
+                                            </th>
+                                            <th>
+                                                Committee
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (Member item in ViewBag.Members)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.MemFullName)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.MemberRegisteredAt)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.MemberCommitteeEnrolls.FirstOrDefault().Committee.CommitteeName)
+                                                </td>
+
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                                <p style="text-align:center">
+                                    <a href="@Url.Action("Index", "Meetings")" class="link-body-emphasis d-inline-flex text-decoration-none rounded">More...</a>
+                                </p>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <!-- #endregion -->
+
+                <!-- #region  Meetings Table-->
+                <div>
+                    @if ((signInManager.IsSignedIn(User) && User.IsInRole("User")))
+                    {
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <span data-bs-toggle="tooltip" data-bs-placement="right" title="This table shows the list of meetings for the current month">
+                                    <div style="display:inline-block"><p>List of upcoming meetings</p></div>
+                                    <i class="bi bi-question-circle-fill"></i>
+                                </span>
+                                
+                                @if (@ViewBag.NewMemMeetings == 0)
+                                {
+                                    <p>Sorry! You are not attending or participating in any Meeting this month.</p>
+                                }
+                                else
+                                {
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    Date
+                                                </th>
+                                                <th>
+                                                    Title
+                                                </th>
+                                                <th>
+                                                    Committee
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (Meeting item in ViewBag.MemMeetings)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.MeetingDate)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.MeetingNotes)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Committee.CommitteeName)
+                                                    </td>
+
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                    <p style="text-align:center">
+                                        <a href="@Url.Action("Index", "Meetings")" class="link-body-emphasis d-inline-flex text-decoration-none rounded">More...</a>
+                                    </p>
+                                }
+                                <p style="text-align:center">
+                                    <a href="@Url.Action("Index", "Meetings")" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Go to Meetings</a>
+                                </p>
+
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <span data-bs-toggle="tooltip" data-bs-placement="right" title="This table shows the list of meetings for the current month, it doesn't included past or more than one month in future meetings">
+                                    <div style="display:inline-block"><p>List of upcoming meetings</p></div>
+                                    <i class="bi bi-question-circle-fill"></i>
+                                    </span>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Date
+                                            </th>
+                                            <th>
+                                                Title
+                                            </th>
+                                            <th>
+                                                Committee
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (Meeting item in ViewBag.Meetings)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.MeetingDate)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.MeetingNotes)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Committee.CommitteeName)
+                                                </td>
+
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                                <p style="text-align:center">
+                                    <a href="@Url.Action("Index", "Meetings")" class="link-body-emphasis d-inline-flex text-decoration-none rounded">More...</a>
+                                </p>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <!-- #endregion -->
+
+                <!-- #region Action Item Table -->
+                <div>
+                @if ((signInManager.IsSignedIn(User) && User.IsInRole("User")))
+                {
+                    <div class="row">
+                        <div class="col-sm-12">
+                                <span data-bs-toggle="tooltip" data-bs-placement="right" title="This table shows the list of action items for the current month">
+                                    <div style="display:inline-block"><p>List of upcoming action items</p></div>
+                                    <i class="bi bi-question-circle-fill"></i>
+                                </span>
+                                @if (@ViewBag.MemTotalTasksCount == 0)
+                            {
+                                <p>Sorry! You do not have Action Items assigned to display this month.</p>
+                            }
+                            else
+                            {
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Item
+                                            </th>
+                                            <th>
+                                                Due Date
+                                            </th>
+                                            <th>
+                                                Documents
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                            @foreach (Task item in ViewBag.MemtasksMonthly)
+                                        {
+                                            <tr>
+                                                <td>
+                                                        @Html.DisplayFor(modelItem => item.ActionName)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.ActionDueDate)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.SupplimentaryDocuments)
+                                                </td>
+
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                                    <p style="text-align:center">
+                                    <a href="@Url.Action("Index", "Tasks")" class="link-body-emphasis d-inline-flex text-decoration-none rounded">More...</a>
+                                </p>
+                            }
+                                <p style="text-align:center">
+                                <a href="@Url.Action("Index", "Tasks")" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Go to Action Items</a>
+                            </p>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="row">
+                        <div class="col-sm-12">
+                                <span data-bs-toggle="tooltip" data-bs-placement="right" title="This table shows the list of action items due in one month, it doesn't included past or more than one month in future action items">
+                                    <div style="display:inline-block"><p>List of action items due in one month</p></div>
+                                    <i class="bi bi-question-circle-fill"></i>
+                                </span>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Item
+                                        </th>
+                                        <th>
+                                            Due Date
+                                        </th>
+                                        <th>
+                                            Created By
+                                        </th>
+                                        <th>
+                                            Documents
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (Task item in ViewBag.Tasks)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ActionName)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ActionDueDate)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.CreatedBy)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.SupplimentaryDocuments)
+                                            </td>
+
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                                <p style="text-align:center">
+                                <a href="@Url.Action("Index", "Tasks")" class="link-body-emphasis d-inline-flex text-decoration-none rounded">More...</a>
+                            </p>
+                        </div>
+                    </div>
+                }
+                </div>
+                <!-- #endregion -->
+
+            </div>
+        </div>
+    </form>
+</div>
+<!-- #endregion -->
+
+<!-- #region Bottom image -->
+</br>
+<div>
+    <div class="container">
+        <div style="position:relative">
+        <img class="HomeImg" src="~/images/niagara_college.png" style="opacity:80%"/>
+        @*Link to access PAC's Policy*@
+            <p style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:70%; height:35%;font-size:large;">Do you want to know more about PAC?</p>
+            <a class="btn-link" href="https://www.niagaracollege.ca/policies/wp-content/uploads/sites/123/2019/10/Program-Advisory-Committees-Policy.pdf" alt="Download Niagara College Program Advisory Committeess policy" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:70%; height:25%;font-size:large;">Niagara College PAC Policy</a>
+    </div>
+    </div>
+</div>
+<!-- #endregion -->

@@ -1,0 +1,62 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        var userName = HttpContextAccessor.HttpContext.Request.Cookies["userName"] ?? UserManager.GetUserName(User);
+        <li class="nav-item dropdown">
+           @* @if (User.IsInRole("User"))
+            {*@
+                <a class="nav-link dropdown-toggle" style="color:white" href="#" id="navbarIDDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Welcome! @userName <b>|</b> <img src="~/images/setting.png" style="height:30px; width:30px" /> <b class="caret"></b>
+            </a>
+            @*}*@
+            @*@if (User.IsInRole("Top Admin"))
+            {
+                <a class="nav-link dropdown-toggle" style="color:white" href="#" id="navbarIDDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Welcome! Top Admin <b class="caret"></b>
+                </a>
+            }
+            @if (User.IsInRole("Admin"))
+            {
+                <a class="nav-link dropdown-toggle" style="color:white" href="#" id="navbarIDDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Welcome! Admin <b class="caret"></b>
+                </a>
+            }*@
+
+            <ul class="dropdown-menu" aria-labelledby="navbarIDDropdown">
+                <li><a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Change Security Settings</a></li>
+                <li><hr class="dropdown-divider"></li>
+                @if (SignInManager.IsSignedIn(User) && User.IsInRole("User"))
+                {
+                    <li><a class="dropdown-item" asp-area="" asp-controller="UserAccount" asp-action="Details">Manage Profile</a></li>
+                }
+                <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Help">Help</a></li>
+                <form class="form-inline" style="margin-left: 8px" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                </form>
+            </ul>
+        </li>
+        @*<li class="nav-item">
+    <a class="nav-link nav-text" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
+    </li>
+    <li class="nav-item">
+    <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+    <button type="submit" class="nav-link btn btn-link nav-text">Logout</button>
+    </form>
+    </li>*@
+    }
+    else
+    {
+        //Redirect to the Members controller and not Identity - Commented out to avoid access from random users
+        @*<li class="nav-item">
+            <a class="nav-link nav-text" asp-area="" asp-controller="Members" asp-action="Register">Register</a>
+        </li>*@
+        <li class="nav-item">
+            <a class="nav-link nav-text" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        </li>
+    }
+</ul>

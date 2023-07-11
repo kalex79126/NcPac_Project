@@ -1,0 +1,61 @@
+﻿@page
+@model LoginModel
+
+@*Page to edit the Login - NMK*@
+
+@{
+    ViewData["Title"] = "Log in";
+}
+
+@*Jumbotron Program Advisory Committees*@
+<div class="jumbotron jumbotron-fluid" style="background-color:#0077be; color:#fff;">
+    <div class="container">
+        <h1 class="display-4">Program Advisory Committees</h1>
+        <p class="lead">Please login into your account</p>
+    </div>
+</div>
+    <div class="container">
+    <div class="col-md-4">
+        <section>
+            <form class="form-" id="account" method="post">
+            
+            @*Niagara College Image*@
+            <img class="mb-4" src="~/images/NC-Logo-2022-Pos.png" alt="Niagara College Logo" style="max-height: 80px; max-width: 96px" class="img-fluid rounded"/>
+            
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-floating">
+                    <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
+                    <label asp-for="Input.Email" class="form-label"></label>
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+                <div class="form-floating">
+                    <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true"  />
+                    <label asp-for="Input.Password" class="form-label"></label>
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <div>
+                    <div class="checkbox">
+                        <label asp-for="Input.RememberMe" class="form-label">
+                            <input class="form-check-input" asp-for="Input.RememberMe" />
+                            @Html.DisplayNameFor(m => m.Input.RememberMe)
+                        </label>
+                    </div>
+                </div>
+                <div>
+                <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary" style="background-color:#0077be; color:#fff;">Log in</button>
+                </div>
+                <div>
+                    <ul style="list-style-type:none;text-align:right">
+                        <li>
+                            <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>
+  
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

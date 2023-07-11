@@ -1,0 +1,115 @@
+﻿@model NcPac_Project2.ViewModels.VolunteerAdminVM
+
+@{
+    ViewData["Title"] = "Edit Account";
+}
+
+<div class="jumbotron jumbotron-fluid margin-bottom" style="background-color:#0077be; color:#fff;">
+    <div class="container">
+        <h1 class="display-4">Edit Account</h1>
+        <p class="lead"> Account Details for: @Model.FullName | @Model.Email</p>
+    </div>
+</div>
+
+<div class="container">
+    
+<form asp-action="Edit">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <fieldset>
+                <legend>Account Details</legend>
+                <hr />
+                <span class="requiretop"><b>NOTE:</b> Fields marked by "*" are required fields</span>
+                <br />
+                <div class="row">
+        <div class="col-md-4">
+            <input type="hidden" asp-for="ID" />
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label><span class="requirefield">*</span>
+                <input asp-for="FirstName" class="form-control"  autofocus />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label><span class="requirefield">*</span>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Phone" class="control-label"></label>
+                <input asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label><span class="requirefield">*</span>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+                <div>
+                    Note:  Changing Email will reset the password for the new Login and the user will need to use Forgot Password with the new Email.
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+
+            <div class="form-group">
+                <label asp-for="UserRoles" class="control-label"></label>
+                <table>
+                    <tr>
+                        @{
+                            int cnt = 0;
+                            List<NcPac_Project2.ViewModels.RoleVM> roles = ViewBag.Roles;
+                            foreach (var role in roles)
+                            {
+                                if (cnt++ % 3 == 0)
+                                {
+                                    @:</tr><tr>
+                                }
+                                    @:<td>
+                                        <input type="checkbox"
+                                               name="selectedRoles"
+                                               value="@role.RoleName"
+                                               @(Html.Raw(role.Assigned ? "checked=\"checked\"" : "")) />
+                                        @role.RoleName @:&nbsp;&nbsp;
+                                    @:</td>
+                            }
+                            @:</tr>
+                        }
+                    </table>
+                </div>
+                <label>Status</label>
+                <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Active" id="chkActive" /> @Html.DisplayNameFor(model => model.Active)
+                </label>
+                        <div id="txtActiveLegend">
+                                        <strong>
+                                                If you make this user inactive, their login system will be removed.
+                                                To login again, make them Active and let them know they must use 
+                                                Forgot Password to set a new one for this email address.
+                                            </strong>         
+                        </div>
+                    
+                        <div id="txtActiveLegendElse" hidden="hidden">               
+                                            <strong>
+                                                If you make this user active, let them know to use Forgot Password to set a new 
+                                                one for this email address.
+                                            </strong>
+                        </div>
+            </div>
+            </div>
+            </div>
+       
+        <br />
+    <div class="form-group" >
+        <input type="submit" value="Save" class="btn btn-primary"/>
+    </div>
+     </fieldset>
+</form>
+
+<div>
+    <a asp-action="Index">Back to Accounts List</a>
+</div>
+
+</div>
+@section Scripts {
+    <script src="~/js/site.js"></script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

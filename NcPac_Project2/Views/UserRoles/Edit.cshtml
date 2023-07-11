@@ -1,0 +1,62 @@
+﻿@model NcPac_Project2.ViewModels.UserVM //TODO: Add this to the navigation link or navbar when is created - NMK
+
+@{
+    ViewBag.Title = "Edit Roles";
+}
+
+<div class="jumbotron jumbotron-fluid margin-bottom" style="background-color:#0077be; color:#fff;">
+    <div class="container">
+        <h1 class="display-4">Edit Account</h1>
+        <p class="lead">Change or Update details</p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+<form asp-action="Edit">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="Id" />
+    <fieldset>
+                <legend>Account Information</legend>
+                <hr />
+            <div class="form-group">
+                <label asp-for="UserName" class="control-label"></label>
+                <input asp-for="UserName" class="form-control" readonly="readonly"/>
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="UserRoles" class="control-label"></label>
+                <table>
+                    <tr>
+                        @{
+                            int cnt = 0;
+                            List<NcPac_Project2.ViewModels.RoleVM> roles = ViewBag.Roles;
+                            foreach (var role in roles)
+                            {
+                                if (cnt++ % 3 == 0)
+                                {
+                                @:</tr><tr>
+                                }
+                                @:<td>
+                                    <input type="checkbox"
+                                           name="selectedRoles"
+                                           value="@role.RoleName"
+                                           @(Html.Raw(role.Assigned ? "checked=\"checked\"" : "")) />
+                                    @role.RoleName @:&nbsp;&nbsp;
+                                @:</td>
+                            }
+                        @:</tr>
+                        }
+                    </table>
+                </div>
+                </fieldset>
+                <div class="form-group">
+                    <input type="submit" id="btnSubmit" @ViewData["NoEdit"] value="Save & Close" title="Click to save changes and close the form" class="btn btn-primary" />
+                </div>
+    </form>
+    </div>
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</div>
