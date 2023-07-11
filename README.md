@@ -22,10 +22,12 @@
      
 ## 5. Main Function
    The main function of this project is to provide a functional program for Niagara College Program Advise Committee to use it for upcoming meetings and past meetings.
-   
+
+   Send out emails to Members of committees
+   Newsfeed available for the members to see upcoming meetings and their roles for the meetings
    
 ## 6. Troubleshooting
-- UI not appearing as desired
+- Data not being generated properly
 - Error when downloading the reports as an Excel file
 - WCAG implementation for better user experience
 - Items left in inventory not changing when it is edited
