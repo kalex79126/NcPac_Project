@@ -16,7 +16,7 @@
 - Azure
   
 ## 3. ERD
-![image](https://github.com/kalex79126/NcPac_Project/assets/122379584/982aa990-b081-44f5-aaf2-2db3c7e8787a)
+![image](https://github.com/kalex79126/NcPac_Project/assets/122379584/0b3ba0ec-faf3-4262-bd67-1b3f10d76dee)
 
    
      
