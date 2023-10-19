@@ -20,11 +20,9 @@
 
    
      
-## 4. Main Function
-The main function of this project is to provide a functional program for Niagara College Program Advise Committee to use it for upcoming meetings and past meetings.
-In the NDS Inventory Management System project, I was responsible for creating an application for inventory management. This involved applying secure design principles, threat modeling, and continuous monitoring to ensure the security and integrity of the system. The project emphasized risk mitigation by protecting sensitive data and maintaining compliance with regulatory standards.
-Send out emails to Members of committees
-Newsfeed available for the members to see upcoming meetings and their roles for the meetings
+## 4. Main Function and Description
+As a team, we developed the project which involved creating a program to manage committee meetings. The main function of this project is to provide a functional program for Niagara College Program Advise Committee to use it for upcoming meetings and past meetings. This project required a keen understanding of application security and governance to ensure the confidentiality and integrity of sensitive meeting information. The system also prioritized risk reduction through the implementation of secure coding practices and continuous monitoring.
+As the client requested, we added a feature of sending out emails to selected or all members of committees later in the project. Newsfeed feature is available for the members who are part of one or more commitee(s) to see upcoming meetings and their roles for the meetings. The following project was selected by the client out of 5 competitors and is now being used to manage the committee.
    
 ## 5. Troubleshooting
 - Data not being generated properly
