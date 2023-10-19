@@ -1,4 +1,4 @@
-# NcPac_Project2
+# NcPac_Project
 
 ## 1. Project Period & # of Teammates
 - 2023 January 14 - 2023 April 20
@@ -21,10 +21,10 @@
    
      
 ## 4. Main Function
-   The main function of this project is to provide a functional program for Niagara College Program Advise Committee to use it for upcoming meetings and past meetings.
-
-   Send out emails to Members of committees
-   Newsfeed available for the members to see upcoming meetings and their roles for the meetings
+The main function of this project is to provide a functional program for Niagara College Program Advise Committee to use it for upcoming meetings and past meetings.
+In the NDS Inventory Management System project, I was responsible for creating an application for inventory management. This involved applying secure design principles, threat modeling, and continuous monitoring to ensure the security and integrity of the system. The project emphasized risk mitigation by protecting sensitive data and maintaining compliance with regulatory standards.
+Send out emails to Members of committees
+Newsfeed available for the members to see upcoming meetings and their roles for the meetings
    
 ## 5. Troubleshooting
 - Data not being generated properly
